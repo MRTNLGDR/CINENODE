@@ -1,0 +1,50 @@
+[
+    {
+        "id": "OSS-GAP-001",
+        "severity": "HIGH",
+        "status": "RESOLVED",
+        "fact": "Os repositórios solicitados são complementares; engines locais adicionais foram integradas."
+    },
+    {
+        "id": "OSS-SUPPLY-CHAIN-001",
+        "severity": "HIGH",
+        "status": "RESOLVED",
+        "fact": "Upstreams agora passam por quarentena, scanner, checksum e promoção atômica."
+    },
+    {
+        "id": "INSTALL-GAP-001",
+        "severity": "HIGH",
+        "status": "RESOLVED",
+        "fact": "Instalador corrigido para usar wheel e fallback automático quando o índice não fornece dependências."
+    },
+    {
+        "id": "OSS-SYNC-BLOCK-001",
+        "severity": "MEDIUM",
+        "status": "OPEN",
+        "fact": "DNS externo indisponível impediu materializar clones no executor."
+    },
+    {
+        "id": "LICENSE-GAP-001",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "fact": "WanGP possui licença comunitária restritiva e permanece externo/opcional."
+    },
+    {
+        "id": "BUILD-GAP-001",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "fact": "Rust, Windows, assinatura e RTX 4090 não existem no executor."
+    },
+    {
+        "id": "MODEL-GAP-001",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "fact": "Pesos reais não foram baixados nem executados."
+    },
+    {
+        "id": "GPU-GAP-001",
+        "severity": "HIGH",
+        "status": "OPEN",
+        "fact": "Desempenho e VRAM no Alienware ainda exigem medição real."
+    }
+]

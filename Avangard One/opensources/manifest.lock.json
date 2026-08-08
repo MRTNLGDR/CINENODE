@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-07T02:23:14.206338+00:00",
+  "repositories": [
+    {
+      "id": "opencode",
+      "status": "REJECTED_SECURITY_AUDIT",
+      "expected_commit": "def7220bfc65b84046e597e9be772eae81f663ff",
+      "actual_commit": "def7220bfc65b84046e597e9be772eae81f663ff",
+      "quarantine_path": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\quarantine\\OpenCode",
+      "audit": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\audits\\opencode.json"
+    },
+    {
+      "id": "vibe-workflow",
+      "status": "UNCHANGED",
+      "expected_commit": "27059d0a3d88288b8f1fd5b51ce3f27b81a9dd46",
+      "actual_commit": "27059d0a3d88288b8f1fd5b51ce3f27b81a9dd46",
+      "path": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\upstream\\Vibe-Workflow"
+    },
+    {
+      "id": "open-generative-ai",
+      "status": "UNCHANGED",
+      "expected_commit": "a5b4ca0632129b173714261349943057da350cb7",
+      "actual_commit": "a5b4ca0632129b173714261349943057da350cb7",
+      "path": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\upstream\\Open-Generative-AI"
+    },
+    {
+      "id": "stable-diffusion-cpp",
+      "status": "UNCHANGED",
+      "expected_commit": "c6beeef35526c6dc94b74a7fb69f9d2e6a2a7a12",
+      "actual_commit": "c6beeef35526c6dc94b74a7fb69f9d2e6a2a7a12",
+      "path": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\upstream\\stable-diffusion.cpp"
+    },
+    {
+      "id": "wangp",
+      "status": "SKIPPED_LICENSE_ACCEPTANCE",
+      "expected_commit": "82d70aba1fba90f4abb3f410146594ac8aa28e60"
+    },
+    {
+      "id": "realesrgan-ncnn",
+      "status": "UNCHANGED",
+      "expected_commit": "37026f49824c5cf84062e7c6a5dd71445dcf610f",
+      "actual_commit": "37026f49824c5cf84062e7c6a5dd71445dcf610f",
+      "path": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\upstream\\Real-ESRGAN-ncnn-vulkan"
+    },
+    {
+      "id": "rife-ncnn",
+      "status": "UNCHANGED",
+      "expected_commit": "a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7",
+      "actual_commit": "a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7",
+      "path": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\upstream\\rife-ncnn-vulkan"
+    },
+    {
+      "id": "comfyui",
+      "status": "CHECKED_OUT_AUDITED",
+      "expected_commit": "2eb609766a749e3104485979615e062e401bab97",
+      "actual_commit": "2eb609766a749e3104485979615e062e401bab97",
+      "path": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\upstream\\ComfyUI",
+      "files": 999,
+      "audit": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\audits\\comfyui.json",
+      "audit_status": "ACCEPTABLE"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "gate_id": "GATE-TEST",
+  "module_id": "M-06",
+  "status": "PASS",
+  "summary": "140 passed, 1 warning in 7.95s",
+  "command": "\"D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\.runtime\\venv\\Scripts\\python.exe\" -m pytest -q",
+  "recorded_at": "2026-08-07T09:32:05.734Z"
+}

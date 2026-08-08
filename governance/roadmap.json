@@ -1,0 +1,17 @@
+{
+    "release": "0.1.0",
+    "updated_at": "2026-08-06T16:15:00Z",
+    "critical_path": [
+        "core/DAG/persistência — DONE",
+        "engines locais/adaptadores — DONE",
+        "editor nodal/UI — DONE",
+        "governança — DONE",
+        "instalação de um clique/fallback de dependências — DONE",
+        "testes/E2E/wheel/ZIP — DONE",
+        "sincronizar upstreams no Alienware — BLOCKED_ENV",
+        "baixar pesos com checksum — BLOCKED_TARGET",
+        "benchmark RTX 4090 — BLOCKED_TARGET",
+        "build/assinatura Tauri Windows — BLOCKED_TARGET"
+    ],
+    "next_session": "TARGET-HARDWARE-VALIDATION-001"
+}

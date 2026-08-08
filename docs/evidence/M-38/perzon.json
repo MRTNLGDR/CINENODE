@@ -1,0 +1,8 @@
+{
+  "gate_id": "GATE-SPEC",
+  "module_id": "M-38",
+  "status": "FAIL",
+  "summary": "  Este mÃ³dulo Ã© especificaÃ§Ã£o executÃ¡vel, nÃ£o implementaÃ§Ã£o. Implementar os algoritmos no repositÃ³rio do PERZON.",
+  "command": "\"D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\.runtime\\venv\\Scripts\\python.exe\" scripts/verify_perzon.py M-38",
+  "recorded_at": "2026-08-07T09:32:38.296Z"
+}

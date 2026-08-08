@@ -1,0 +1,8 @@
+{
+  "gate_id": "GATE-FUNC",
+  "module_id": "M-04",
+  "status": "PASS",
+  "summary": "PASS: mÃ³dulo sem nÃ³s declarados (infraestrutura)",
+  "command": "\"D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\.runtime\\venv\\Scripts\\python.exe\" scripts/verify_module.py M-04",
+  "recorded_at": "2026-08-07T09:32:02.714Z"
+}

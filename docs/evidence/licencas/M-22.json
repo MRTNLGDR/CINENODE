@@ -1,0 +1,111 @@
+{
+  "gate_id": "GATE-LICENSE",
+  "status": "FAIL",
+  "summary": "0/1 autorizados, 1 pendentes, 0 não registrados",
+  "recorded_at": "2026-08-07T14:05:48.581Z",
+  "escopo": [
+    "model3d"
+  ],
+  "total_registrado": 1,
+  "autorizados": 0,
+  "pendentes": [
+    {
+      "id": "tencent/Hunyuan3D-2-weights",
+      "nome_front": "Pesos Hunyuan3D 2",
+      "licenca": "UNKNOWN_BLOCKED",
+      "o_que_falta": "resolver a licença dos pesos na origem declarada",
+      "origem": "https://huggingface.co/tencent/Hunyuan3D-2",
+      "observacao": "a licença Tencent restringe território e escala; ler antes de liberar"
+    }
+  ],
+  "nao_registrados": [],
+  "nao_conferidos": [],
+  "cobertura": {
+    "Qwen3-4B-Instruct-2507-Q4_K_M": "Qwen/Qwen3",
+    "Wan2.2-T2V-A14B-HighNoise-Q5_K_M": "Wan-AI/Wan2.2-weights",
+    "Wan2.2-T2V-A14B-LowNoise-Q5_K_M": "Wan-AI/Wan2.2-weights",
+    "ae": "black-forest-labs/FLUX.1-autoencoder",
+    "avangard-qwen25-coder:1.5b-q4_k_m": "local/derivados-qwen",
+    "clip_l": "openai/CLIP-ViT-L",
+    "deepseek-coder-v2:latest": "deepseek-ai/DeepSeek-Coder",
+    "deepseek-coder-v2:lite": "deepseek-ai/DeepSeek-Coder",
+    "deepseek-coder:33b": "deepseek-ai/DeepSeek-Coder",
+    "deepseek-coder:6.7b": "deepseek-ai/DeepSeek-Coder",
+    "deepseek-r1:32b": "deepseek-ai/DeepSeek-R1",
+    "dev-power-fast:latest": "local/derivados-qwen",
+    "dev-power-max-context:latest": "local/derivados-qwen",
+    "dev-power:latest": "local/derivados-qwen",
+    "devstral:24b": "mistralai/Devstral-Small",
+    "diffusion_pytorch_model": "black-forest-labs/FLUX.1-autoencoder",
+    "face_landmarker": "mediapipe/face_landmarker",
+    "flux1-schnell-Q4_K_S": "black-forest-labs/FLUX.1-schnell",
+    "gpt-oss-cad:20b": "local/gpt-oss-cad",
+    "gpt-oss:20b": "openai/gpt-oss",
+    "hunyuan3d-dit-v2_fp16": "tencent/Hunyuan3D-2-weights",
+    "llama3:latest": "meta-llama/Meta-Llama-3",
+    "llava:13b": "liuhaotian/LLaVA",
+    "minimax-m2:cloud": "MiniMax/MiniMax-M2",
+    "nomic-embed-text:latest": "nomic-ai/nomic-embed-text",
+    "pose_landmarker_full": "mediapipe/pose_landmarker_full",
+    "qwen2.5-coder:1.5b": "Qwen/Qwen2.5",
+    "qwen2.5-coder:32b": "Qwen/Qwen2.5",
+    "qwen2.5-coder:latest": "Qwen/Qwen2.5",
+    "qwen2.5:0.5b-instruct-q8_0": "Qwen/Qwen2.5",
+    "qwen2.5:latest": "Qwen/Qwen2.5",
+    "qwen3-coder:30b": "Qwen/Qwen3",
+    "qwen3-vl:4b": "Qwen/Qwen3-VL",
+    "qwen3:0.6b": "Qwen/Qwen3",
+    "qwen3:1.7b": "Qwen/Qwen3",
+    "qwen3:14b": "Qwen/Qwen3",
+    "qwen3:8b-q4_K_M": "Qwen/Qwen3",
+    "speed-coder:latest": "local/derivados-qwen",
+    "speed-max-context:latest": "local/derivados-qwen",
+    "t5-v1_1-xxl-encoder-Q5_K_M": "google/T5-v1.1-XXL",
+    "t5xxl-Q5_K_M": "google/T5-v1.1-XXL",
+    "umt5-xxl-encoder-Q5_K_M": "google/T5-v1.1-XXL",
+    "wan2.1_t2v_1.3B_fp16": "Wan-AI/Wan2.1-weights",
+    "wan_2.1_vae": "Wan-AI/Wan2.1-weights",
+    "z_image_turbo-Q3_K": "Tongyi-MAI/Z-Image-Turbo-weights",
+    "z_image_vae": "Tongyi-MAI/Z-Image-Turbo-weights"
+  },
+  "modelos": [
+    {
+      "id": "tencent/Hunyuan3D-2-weights",
+      "slot": "model3d.generate",
+      "nome_front": "Pesos Hunyuan3D 2",
+      "origem": "https://huggingface.co/tencent/Hunyuan3D-2",
+      "licenca": "UNKNOWN_BLOCKED",
+      "spdx": "",
+      "uso_comercial": "UNKNOWN",
+      "runtime": "comfyui",
+      "revisao": "",
+      "modalidades": [
+        "image",
+        "mesh"
+      ],
+      "hardware_minimo": "",
+      "limitacoes": "",
+      "fallback": "",
+      "estado": "CANDIDATE",
+      "observacao": "a licença Tencent restringe território e escala; ler antes de liberar",
+      "padroes": [
+        "hunyuan3d"
+      ],
+      "conferido": false,
+      "conferencia": "card upstream, nao conferido no disco",
+      "autoriza_producao": false
+    }
+  ],
+  "tags_validas": [
+    "OSS_CODE",
+    "OPEN_WEIGHTS",
+    "SOURCE_AVAILABLE",
+    "RESEARCH_ONLY",
+    "NONCOMMERCIAL",
+    "COMMERCIAL_CONDITIONAL",
+    "PROVIDER_API",
+    "DATA_LICENSE_RESTRICTED",
+    "UNKNOWN_BLOCKED"
+  ],
+  "gerado_em": "2026-08-07T14:05:48.581Z"
+}

@@ -1,0 +1,770 @@
+[
+  {
+    "caminho": "codigo/backend/__init__.py",
+    "bytes": 66,
+    "linhas": 4,
+    "sha256": "e386da82265a4d5c"
+  },
+  {
+    "caminho": "codigo/backend/__main__.py",
+    "bytes": 48,
+    "linhas": 4,
+    "sha256": "935a1c1166b0c1ea"
+  },
+  {
+    "caminho": "codigo/backend/agent.py",
+    "bytes": 25527,
+    "linhas": 546,
+    "sha256": "8731f39d8f591451"
+  },
+  {
+    "caminho": "codigo/backend/api.py",
+    "bytes": 55860,
+    "linhas": 1211,
+    "sha256": "8af807627c4e3f24"
+  },
+  {
+    "caminho": "codigo/backend/backup.py",
+    "bytes": 8262,
+    "linhas": 156,
+    "sha256": "f223c3b7a90681b3"
+  },
+  {
+    "caminho": "codigo/backend/cli.py",
+    "bytes": 3424,
+    "linhas": 106,
+    "sha256": "1dd89ee6e7ddeec8"
+  },
+  {
+    "caminho": "codigo/backend/config.py",
+    "bytes": 3552,
+    "linhas": 98,
+    "sha256": "a59488b80ffb2c48"
+  },
+  {
+    "caminho": "codigo/backend/database.py",
+    "bytes": 18703,
+    "linhas": 434,
+    "sha256": "5eed88f973d246c1"
+  },
+  {
+    "caminho": "codigo/backend/docs/API.md",
+    "bytes": 1583,
+    "linhas": 31,
+    "sha256": "f62d69bf66d5666e"
+  },
+  {
+    "caminho": "codigo/backend/docs/ARCHITECTURE.md",
+    "bytes": 2534,
+    "linhas": 54,
+    "sha256": "457620975f8a65dc"
+  },
+  {
+    "caminho": "codigo/backend/docs/AUDIT_REPORT.md",
+    "bytes": 6498,
+    "linhas": 114,
+    "sha256": "986bb467f5c71a50"
+  },
+  {
+    "caminho": "codigo/backend/docs/GOVERNANCE.md",
+    "bytes": 524,
+    "linhas": 13,
+    "sha256": "d99aaaceb30a78b3"
+  },
+  {
+    "caminho": "codigo/backend/docs/MODEL_MATRIX.md",
+    "bytes": 2495,
+    "linhas": 54,
+    "sha256": "503555b3e530eef1"
+  },
+  {
+    "caminho": "codigo/backend/docs/OPEN_SOURCE_INTEGRATION.md",
+    "bytes": 3020,
+    "linhas": 66,
+    "sha256": "0668f38787af0011"
+  },
+  {
+    "caminho": "codigo/backend/docs/QUICKSTART.md",
+    "bytes": 1577,
+    "linhas": 46,
+    "sha256": "358a3b8fbd1ba394"
+  },
+  {
+    "caminho": "codigo/backend/docs/README.md",
+    "bytes": 6491,
+    "linhas": 127,
+    "sha256": "b2603e7406aee49d"
+  },
+  {
+    "caminho": "codigo/backend/docs/RECOVERY.md",
+    "bytes": 1320,
+    "linhas": 43,
+    "sha256": "7cc2a858a5c9ecf6"
+  },
+  {
+    "caminho": "codigo/backend/docs/SECURITY.md",
+    "bytes": 2117,
+    "linhas": 44,
+    "sha256": "3739ab8618c28080"
+  },
+  {
+    "caminho": "codigo/backend/docs/TEST_REPORT.md",
+    "bytes": 7661,
+    "linhas": 216,
+    "sha256": "67cd7a821cd715ab"
+  },
+  {
+    "caminho": "codigo/backend/docs/VALIDATION.md",
+    "bytes": 2023,
+    "linhas": 29,
+    "sha256": "91beb0e05e2c3afc"
+  },
+  {
+    "caminho": "codigo/backend/engines/__init__.py",
+    "bytes": 113,
+    "linhas": 4,
+    "sha256": "3f2813a7b66d5c4b"
+  },
+  {
+    "caminho": "codigo/backend/engines/comfyui.py",
+    "bytes": 6665,
+    "linhas": 136,
+    "sha256": "42de16a9b7d947fd"
+  },
+  {
+    "caminho": "codigo/backend/engines/common.py",
+    "bytes": 4522,
+    "linhas": 141,
+    "sha256": "1e9a6717a986bf4e"
+  },
+  {
+    "caminho": "codigo/backend/engines/humandna.py",
+    "bytes": 25473,
+    "linhas": 563,
+    "sha256": "4c063d30ce2f0da8"
+  },
+  {
+    "caminho": "codigo/backend/engines/llm.py",
+    "bytes": 7671,
+    "linhas": 162,
+    "sha256": "1ac0e0d1f416ea11"
+  },
+  {
+    "caminho": "codigo/backend/engines/mesh.py",
+    "bytes": 16694,
+    "linhas": 384,
+    "sha256": "ca9e04226ff9f1f7"
+  },
+  {
+    "caminho": "codigo/backend/engines/postprocess.py",
+    "bytes": 28985,
+    "linhas": 575,
+    "sha256": "51b29696e80f2de5"
+  },
+  {
+    "caminho": "codigo/backend/engines/registry.py",
+    "bytes": 14688,
+    "linhas": 268,
+    "sha256": "28166d6dd5aec7fc"
+  },
+  {
+    "caminho": "codigo/backend/engines/sd_cpp.py",
+    "bytes": 8680,
+    "linhas": 197,
+    "sha256": "960d437e3e3901dc"
+  },
+  {
+    "caminho": "codigo/backend/engines/vision.py",
+    "bytes": 14560,
+    "linhas": 355,
+    "sha256": "3a537a601e23bf3e"
+  },
+  {
+    "caminho": "codigo/backend/engines/wangp.py",
+    "bytes": 3470,
+    "linhas": 78,
+    "sha256": "940e0c3fc5ddacb4"
+  },
+  {
+    "caminho": "codigo/backend/engines/wangp_bridge.py",
+    "bytes": 1561,
+    "linhas": 48,
+    "sha256": "b3d9d7cca85cedf6"
+  },
+  {
+    "caminho": "codigo/backend/events.py",
+    "bytes": 1766,
+    "linhas": 54,
+    "sha256": "35b80812056c8075"
+  },
+  {
+    "caminho": "codigo/backend/frontend/app.js",
+    "bytes": 187105,
+    "linhas": 3389,
+    "sha256": "2fa30c9e5ab6e787"
+  },
+  {
+    "caminho": "codigo/backend/frontend/glb-viewer.js",
+    "bytes": 11103,
+    "linhas": 254,
+    "sha256": "c0632681761cd2c7"
+  },
+  {
+    "caminho": "codigo/backend/frontend/index.html",
+    "bytes": 968,
+    "linhas": 24,
+    "sha256": "5f32f015dabb6e1a"
+  },
+  {
+    "caminho": "codigo/backend/frontend/styles.css",
+    "bytes": 97940,
+    "linhas": 1361,
+    "sha256": "63039999968863f0"
+  },
+  {
+    "caminho": "codigo/backend/gateway.py",
+    "bytes": 19267,
+    "linhas": 432,
+    "sha256": "75f1586dca8a5cfd"
+  },
+  {
+    "caminho": "codigo/backend/governance.py",
+    "bytes": 24150,
+    "linhas": 359,
+    "sha256": "480468ab579712da"
+  },
+  {
+    "caminho": "codigo/backend/indexer.py",
+    "bytes": 19082,
+    "linhas": 410,
+    "sha256": "4091904c41944ee8"
+  },
+  {
+    "caminho": "codigo/backend/jobs.py",
+    "bytes": 8200,
+    "linhas": 173,
+    "sha256": "2f5380dc93882389"
+  },
+  {
+    "caminho": "codigo/backend/modules.py",
+    "bytes": 19182,
+    "linhas": 394,
+    "sha256": "7bd50a7a38407cb3"
+  },
+  {
+    "caminho": "codigo/backend/perzon/__init__.py",
+    "bytes": 1523,
+    "linhas": 35,
+    "sha256": "707da0e8d103cf72"
+  },
+  {
+    "caminho": "codigo/backend/perzon/character_ops.py",
+    "bytes": 18349,
+    "linhas": 410,
+    "sha256": "35093d829b3c0fbc"
+  },
+  {
+    "caminho": "codigo/backend/perzon/cloth_ops.py",
+    "bytes": 23276,
+    "linhas": 505,
+    "sha256": "fd695dec76fcff28"
+  },
+  {
+    "caminho": "codigo/backend/perzon/engine.py",
+    "bytes": 28396,
+    "linhas": 584,
+    "sha256": "2a384606e86e8b21"
+  },
+  {
+    "caminho": "codigo/backend/perzon/export_ops.py",
+    "bytes": 15452,
+    "linhas": 361,
+    "sha256": "1e4511c51432a410"
+  },
+  {
+    "caminho": "codigo/backend/perzon/face_ops.py",
+    "bytes": 15413,
+    "linhas": 344,
+    "sha256": "7e7f70eef8f6134f"
+  },
+  {
+    "caminho": "codigo/backend/perzon/hair_ops.py",
+    "bytes": 19614,
+    "linhas": 454,
+    "sha256": "89fef2086e9a25c1"
+  },
+  {
+    "caminho": "codigo/backend/perzon/headshot_ops.py",
+    "bytes": 14314,
+    "linhas": 317,
+    "sha256": "1b04803e41b92b95"
+  },
+  {
+    "caminho": "codigo/backend/perzon/material_ops.py",
+    "bytes": 10978,
+    "linhas": 244,
+    "sha256": "1cf2ac36efe63af8"
+  },
+  {
+    "caminho": "codigo/backend/perzon/mesh_ops.py",
+    "bytes": 14804,
+    "linhas": 348,
+    "sha256": "ac9d1659997221a0"
+  },
+  {
+    "caminho": "codigo/backend/perzon/motion_ops.py",
+    "bytes": 18616,
+    "linhas": 400,
+    "sha256": "025f2dd53f7f1177"
+  },
+  {
+    "caminho": "codigo/backend/perzon/registry.py",
+    "bytes": 26570,
+    "linhas": 430,
+    "sha256": "875244040b842848"
+  },
+  {
+    "caminho": "codigo/backend/perzon/rig_ops.py",
+    "bytes": 10575,
+    "linhas": 242,
+    "sha256": "07ada95d26a77bb3"
+  },
+  {
+    "caminho": "codigo/backend/policy.py",
+    "bytes": 6502,
+    "linhas": 151,
+    "sha256": "198d3b4b0e0060f2"
+  },
+  {
+    "caminho": "codigo/backend/registry_models.py",
+    "bytes": 21719,
+    "linhas": 375,
+    "sha256": "bc22527be6d81c2c"
+  },
+  {
+    "caminho": "codigo/backend/schemas.py",
+    "bytes": 3054,
+    "linhas": 109,
+    "sha256": "c9351e791119af28"
+  },
+  {
+    "caminho": "codigo/backend/security.py",
+    "bytes": 2855,
+    "linhas": 66,
+    "sha256": "d43b933f25b4ab3b"
+  },
+  {
+    "caminho": "codigo/backend/store.py",
+    "bytes": 28302,
+    "linhas": 589,
+    "sha256": "855fe4737e158e73"
+  },
+  {
+    "caminho": "codigo/backend/util.py",
+    "bytes": 873,
+    "linhas": 33,
+    "sha256": "8ed8fd1d6f0d47eb"
+  },
+  {
+    "caminho": "codigo/backend/workflow.py",
+    "bytes": 85313,
+    "linhas": 1446,
+    "sha256": "d1bc67ace41bbd6b"
+  },
+  {
+    "caminho": "codigo/backend/workflows/comfy/hunyuan3d-v2-image-to-mesh.json",
+    "bytes": 1597,
+    "linhas": 56,
+    "sha256": "4cc5b88fbb9e0669"
+  },
+  {
+    "caminho": "codigo/frontend/app.js",
+    "bytes": 187105,
+    "linhas": 3389,
+    "sha256": "2fa30c9e5ab6e787"
+  },
+  {
+    "caminho": "codigo/frontend/glb-viewer.js",
+    "bytes": 11103,
+    "linhas": 254,
+    "sha256": "c0632681761cd2c7"
+  },
+  {
+    "caminho": "codigo/frontend/index.html",
+    "bytes": 968,
+    "linhas": 24,
+    "sha256": "5f32f015dabb6e1a"
+  },
+  {
+    "caminho": "codigo/frontend/styles.css",
+    "bytes": 97940,
+    "linhas": 1361,
+    "sha256": "63039999968863f0"
+  },
+  {
+    "caminho": "codigo/LIGAR.bat",
+    "bytes": 1438,
+    "linhas": 39,
+    "sha256": "e9378f6cae204e97"
+  },
+  {
+    "caminho": "codigo/pyproject.toml",
+    "bytes": 1121,
+    "linhas": 39,
+    "sha256": "3a46fc87ec1d35a9"
+  },
+  {
+    "caminho": "codigo/scripts/__init__.py",
+    "bytes": 0,
+    "linhas": 1,
+    "sha256": "e3b0c44298fc1c14"
+  },
+  {
+    "caminho": "codigo/scripts/audit_upstream.py",
+    "bytes": 8998,
+    "linhas": 222,
+    "sha256": "ab2120497786d935"
+  },
+  {
+    "caminho": "codigo/scripts/autocommit.ps1",
+    "bytes": 4474,
+    "linhas": 116,
+    "sha256": "7bd5af5a8c50bdfe"
+  },
+  {
+    "caminho": "codigo/scripts/backend_entry.py",
+    "bytes": 56,
+    "linhas": 4,
+    "sha256": "e1084c454f1888a1"
+  },
+  {
+    "caminho": "codigo/scripts/bootstrap-opensources.ps1",
+    "bytes": 992,
+    "linhas": 21,
+    "sha256": "96aac2d3eae971d0"
+  },
+  {
+    "caminho": "codigo/scripts/bootstrap-opensources.sh",
+    "bytes": 171,
+    "linhas": 5,
+    "sha256": "eda629dcf98a4407"
+  },
+  {
+    "caminho": "codigo/scripts/browser_e2e.py",
+    "bytes": 6679,
+    "linhas": 150,
+    "sha256": "dce48da237d9164e"
+  },
+  {
+    "caminho": "codigo/scripts/build-tauri.ps1",
+    "bytes": 2743,
+    "linhas": 41,
+    "sha256": "ab3d03a275fc118b"
+  },
+  {
+    "caminho": "codigo/scripts/build-tauri.sh",
+    "bytes": 1401,
+    "linhas": 21,
+    "sha256": "a18bf939db6f1788"
+  },
+  {
+    "caminho": "codigo/scripts/download-models.ps1",
+    "bytes": 754,
+    "linhas": 18,
+    "sha256": "fd3f32de71e28511"
+  },
+  {
+    "caminho": "codigo/scripts/download-models.sh",
+    "bytes": 435,
+    "linhas": 13,
+    "sha256": "a33404e2c33126d1"
+  },
+  {
+    "caminho": "codigo/scripts/governance_report.py",
+    "bytes": 4168,
+    "linhas": 102,
+    "sha256": "6eaac45b476af969"
+  },
+  {
+    "caminho": "codigo/scripts/install-comfy.ps1",
+    "bytes": 4948,
+    "linhas": 103,
+    "sha256": "9f549dc17ee24fd0"
+  },
+  {
+    "caminho": "codigo/scripts/install-engines.ps1",
+    "bytes": 5283,
+    "linhas": 94,
+    "sha256": "3480c0b6c9d51e89"
+  },
+  {
+    "caminho": "codigo/scripts/install-engines.sh",
+    "bytes": 2157,
+    "linhas": 43,
+    "sha256": "b45b7e80acf92b5f"
+  },
+  {
+    "caminho": "codigo/scripts/install.ps1",
+    "bytes": 6242,
+    "linhas": 114,
+    "sha256": "bc48715047a02d78"
+  },
+  {
+    "caminho": "codigo/scripts/install.sh",
+    "bytes": 3416,
+    "linhas": 80,
+    "sha256": "968fd9a6e74f7b10"
+  },
+  {
+    "caminho": "codigo/scripts/install_portable_engines.py",
+    "bytes": 9709,
+    "linhas": 238,
+    "sha256": "4171dee2b9460dad"
+  },
+  {
+    "caminho": "codigo/scripts/install_vision_models.py",
+    "bytes": 7139,
+    "linhas": 163,
+    "sha256": "27d1e0a5d4a3bc03"
+  },
+  {
+    "caminho": "codigo/scripts/model_manager.py",
+    "bytes": 14112,
+    "linhas": 343,
+    "sha256": "0a008e4f6462624b"
+  },
+  {
+    "caminho": "codigo/scripts/resetar.py",
+    "bytes": 8054,
+    "linhas": 212,
+    "sha256": "80d59ea58d7e63f1"
+  },
+  {
+    "caminho": "codigo/scripts/run-comfy.ps1",
+    "bytes": 2180,
+    "linhas": 52,
+    "sha256": "0eaa7533127dcc2f"
+  },
+  {
+    "caminho": "codigo/scripts/run.sh",
+    "bytes": 339,
+    "linhas": 9,
+    "sha256": "adbf93f30d77f893"
+  },
+  {
+    "caminho": "codigo/scripts/smoke_test.py",
+    "bytes": 4052,
+    "linhas": 108,
+    "sha256": "2e87a6ec7dd8a9de"
+  },
+  {
+    "caminho": "codigo/scripts/start-all.ps1",
+    "bytes": 6224,
+    "linhas": 132,
+    "sha256": "77511c199ec30d55"
+  },
+  {
+    "caminho": "codigo/scripts/start-stack.ps1",
+    "bytes": 3779,
+    "linhas": 82,
+    "sha256": "946af8cf2d3dc52d"
+  },
+  {
+    "caminho": "codigo/scripts/stop.sh",
+    "bytes": 295,
+    "linhas": 6,
+    "sha256": "3ee2ed5a5e9e7340"
+  },
+  {
+    "caminho": "codigo/scripts/sync_opensources.py",
+    "bytes": 6712,
+    "linhas": 168,
+    "sha256": "2b9cd8698e96e69c"
+  },
+  {
+    "caminho": "codigo/scripts/uninstall.sh",
+    "bytes": 305,
+    "linhas": 8,
+    "sha256": "3403302e6ca90b44"
+  },
+  {
+    "caminho": "codigo/scripts/validate_package.py",
+    "bytes": 4751,
+    "linhas": 114,
+    "sha256": "ce30db438bbd7b62"
+  },
+  {
+    "caminho": "codigo/scripts/verify_licenses.py",
+    "bytes": 3935,
+    "linhas": 102,
+    "sha256": "1bbb5f2ea0e260b1"
+  },
+  {
+    "caminho": "codigo/scripts/verify_module.py",
+    "bytes": 4937,
+    "linhas": 126,
+    "sha256": "8ccd990aa3048003"
+  },
+  {
+    "caminho": "codigo/scripts/verify_perzon.py",
+    "bytes": 9498,
+    "linhas": 230,
+    "sha256": "5191c131fbbf7d7f"
+  },
+  {
+    "caminho": "codigo/testes/conftest.py",
+    "bytes": 1725,
+    "linhas": 64,
+    "sha256": "4b1c9d8ea283aac7"
+  },
+  {
+    "caminho": "codigo/testes/test_assets_and_media.py",
+    "bytes": 2300,
+    "linhas": 58,
+    "sha256": "a07979ce9e30d5db"
+  },
+  {
+    "caminho": "codigo/testes/test_backup_and_settings.py",
+    "bytes": 3165,
+    "linhas": 76,
+    "sha256": "cc43e9404a6c1a8a"
+  },
+  {
+    "caminho": "codigo/testes/test_catalog_visual_rule.py",
+    "bytes": 3862,
+    "linhas": 98,
+    "sha256": "c9978a9cd33bb5bf"
+  },
+  {
+    "caminho": "codigo/testes/test_database_and_governance.py",
+    "bytes": 2519,
+    "linhas": 43,
+    "sha256": "19b4feb86230d74d"
+  },
+  {
+    "caminho": "codigo/testes/test_empacotamento.py",
+    "bytes": 5004,
+    "linhas": 115,
+    "sha256": "dc8d32ad41142e68"
+  },
+  {
+    "caminho": "codigo/testes/test_frontend.py",
+    "bytes": 871,
+    "linhas": 22,
+    "sha256": "43914dd9c6d1c3b5"
+  },
+  {
+    "caminho": "codigo/testes/test_gateway_indexer.py",
+    "bytes": 7490,
+    "linhas": 190,
+    "sha256": "117c1defebc09fc6"
+  },
+  {
+    "caminho": "codigo/testes/test_governanca_sessao.py",
+    "bytes": 19080,
+    "linhas": 416,
+    "sha256": "5d28caf904a50887"
+  },
+  {
+    "caminho": "codigo/testes/test_humandna.py",
+    "bytes": 9267,
+    "linhas": 226,
+    "sha256": "3fc2a7f5bfb613f3"
+  },
+  {
+    "caminho": "codigo/testes/test_integridade.py",
+    "bytes": 5393,
+    "linhas": 129,
+    "sha256": "a5a24afd6fe15a2f"
+  },
+  {
+    "caminho": "codigo/testes/test_jobs.py",
+    "bytes": 2204,
+    "linhas": 52,
+    "sha256": "529f498e874b30ca"
+  },
+  {
+    "caminho": "codigo/testes/test_modulos.py",
+    "bytes": 6995,
+    "linhas": 186,
+    "sha256": "f927cc87b1d27949"
+  },
+  {
+    "caminho": "codigo/testes/test_perzon.py",
+    "bytes": 60241,
+    "linhas": 1343,
+    "sha256": "b12e54dcd26a19a3"
+  },
+  {
+    "caminho": "codigo/testes/test_policy.py",
+    "bytes": 5366,
+    "linhas": 140,
+    "sha256": "11e19e22630c93b3"
+  },
+  {
+    "caminho": "codigo/testes/test_preflight.py",
+    "bytes": 6642,
+    "linhas": 170,
+    "sha256": "1c72e820d57f4c9a"
+  },
+  {
+    "caminho": "codigo/testes/test_projects_and_validation.py",
+    "bytes": 2049,
+    "linhas": 48,
+    "sha256": "a7dfc4e54c2dc3ab"
+  },
+  {
+    "caminho": "codigo/testes/test_recovery.py",
+    "bytes": 5782,
+    "linhas": 139,
+    "sha256": "1c07581098c30c71"
+  },
+  {
+    "caminho": "codigo/testes/test_registry_models.py",
+    "bytes": 8842,
+    "linhas": 209,
+    "sha256": "4816f70b54b9aab6"
+  },
+  {
+    "caminho": "codigo/testes/test_restore.py",
+    "bytes": 7421,
+    "linhas": 188,
+    "sha256": "903b1d574ff7d952"
+  },
+  {
+    "caminho": "codigo/testes/test_sd_cpp_adapter.py",
+    "bytes": 2562,
+    "linhas": 91,
+    "sha256": "76611f5370e8219f"
+  },
+  {
+    "caminho": "codigo/testes/test_security.py",
+    "bytes": 981,
+    "linhas": 33,
+    "sha256": "3957e2e2c6ea26fc"
+  },
+  {
+    "caminho": "codigo/testes/test_upstream_audit.py",
+    "bytes": 1855,
+    "linhas": 44,
+    "sha256": "68a724bb9e7793c6"
+  },
+  {
+    "caminho": "codigo/testes/test_vibe_nodes.py",
+    "bytes": 4952,
+    "linhas": 121,
+    "sha256": "98857aed16133c3f"
+  },
+  {
+    "caminho": "codigo/testes/test_web_ssrf.py",
+    "bytes": 3487,
+    "linhas": 93,
+    "sha256": "a2acf76f82ad1fb7"
+  },
+  {
+    "caminho": "codigo/testes/test_workflow_regras.py",
+    "bytes": 11460,
+    "linhas": 250,
+    "sha256": "c6bd9e6e79ebc667"
+  }
+]

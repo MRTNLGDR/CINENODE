@@ -1,0 +1,219 @@
+{
+  "gate_id": "GATE-LICENSE",
+  "status": "PASS",
+  "summary": "5/5 autorizados, 0 pendentes, 0 não registrados",
+  "recorded_at": "2026-08-07T14:05:48.244Z",
+  "escopo": [
+    "video",
+    "upscale.image",
+    "media.transform"
+  ],
+  "total_registrado": 5,
+  "autorizados": 5,
+  "pendentes": [],
+  "nao_registrados": [],
+  "nao_conferidos": [
+    "xinntao/Real-ESRGAN",
+    "hzwer/Practical-RIFE",
+    "Wan-AI/Wan2.1-weights",
+    "Wan-AI/Wan2.2-weights"
+  ],
+  "cobertura": {
+    "Qwen3-4B-Instruct-2507-Q4_K_M": "Qwen/Qwen3",
+    "Wan2.2-T2V-A14B-HighNoise-Q5_K_M": "Wan-AI/Wan2.2-weights",
+    "Wan2.2-T2V-A14B-LowNoise-Q5_K_M": "Wan-AI/Wan2.2-weights",
+    "ae": "black-forest-labs/FLUX.1-autoencoder",
+    "avangard-qwen25-coder:1.5b-q4_k_m": "local/derivados-qwen",
+    "clip_l": "openai/CLIP-ViT-L",
+    "deepseek-coder-v2:latest": "deepseek-ai/DeepSeek-Coder",
+    "deepseek-coder-v2:lite": "deepseek-ai/DeepSeek-Coder",
+    "deepseek-coder:33b": "deepseek-ai/DeepSeek-Coder",
+    "deepseek-coder:6.7b": "deepseek-ai/DeepSeek-Coder",
+    "deepseek-r1:32b": "deepseek-ai/DeepSeek-R1",
+    "dev-power-fast:latest": "local/derivados-qwen",
+    "dev-power-max-context:latest": "local/derivados-qwen",
+    "dev-power:latest": "local/derivados-qwen",
+    "devstral:24b": "mistralai/Devstral-Small",
+    "diffusion_pytorch_model": "black-forest-labs/FLUX.1-autoencoder",
+    "face_landmarker": "mediapipe/face_landmarker",
+    "flux1-schnell-Q4_K_S": "black-forest-labs/FLUX.1-schnell",
+    "gpt-oss-cad:20b": "local/gpt-oss-cad",
+    "gpt-oss:20b": "openai/gpt-oss",
+    "hunyuan3d-dit-v2_fp16": "tencent/Hunyuan3D-2-weights",
+    "llama3:latest": "meta-llama/Meta-Llama-3",
+    "llava:13b": "liuhaotian/LLaVA",
+    "minimax-m2:cloud": "MiniMax/MiniMax-M2",
+    "nomic-embed-text:latest": "nomic-ai/nomic-embed-text",
+    "pose_landmarker_full": "mediapipe/pose_landmarker_full",
+    "qwen2.5-coder:1.5b": "Qwen/Qwen2.5",
+    "qwen2.5-coder:32b": "Qwen/Qwen2.5",
+    "qwen2.5-coder:latest": "Qwen/Qwen2.5",
+    "qwen2.5:0.5b-instruct-q8_0": "Qwen/Qwen2.5",
+    "qwen2.5:latest": "Qwen/Qwen2.5",
+    "qwen3-coder:30b": "Qwen/Qwen3",
+    "qwen3-vl:4b": "Qwen/Qwen3-VL",
+    "qwen3:0.6b": "Qwen/Qwen3",
+    "qwen3:1.7b": "Qwen/Qwen3",
+    "qwen3:14b": "Qwen/Qwen3",
+    "qwen3:8b-q4_K_M": "Qwen/Qwen3",
+    "speed-coder:latest": "local/derivados-qwen",
+    "speed-max-context:latest": "local/derivados-qwen",
+    "t5-v1_1-xxl-encoder-Q5_K_M": "google/T5-v1.1-XXL",
+    "t5xxl-Q5_K_M": "google/T5-v1.1-XXL",
+    "umt5-xxl-encoder-Q5_K_M": "google/T5-v1.1-XXL",
+    "wan2.1_t2v_1.3B_fp16": "Wan-AI/Wan2.1-weights",
+    "wan_2.1_vae": "Wan-AI/Wan2.1-weights",
+    "z_image_turbo-Q3_K": "Tongyi-MAI/Z-Image-Turbo-weights",
+    "z_image_vae": "Tongyi-MAI/Z-Image-Turbo-weights"
+  },
+  "modelos": [
+    {
+      "id": "xinntao/Real-ESRGAN",
+      "slot": "upscale.image",
+      "nome_front": "Aumentar resolução",
+      "origem": "https://github.com/xinntao/Real-ESRGAN",
+      "licenca": "OSS_CODE",
+      "spdx": "BSD-3-Clause",
+      "uso_comercial": "YES",
+      "runtime": "ncnn-vulkan",
+      "revisao": "",
+      "modalidades": [
+        "image"
+      ],
+      "hardware_minimo": "GPU Vulkan",
+      "limitacoes": "tile=0 custa 244,9 s contra 6,0 s com tile=256",
+      "fallback": "",
+      "estado": "STABLE",
+      "observacao": "",
+      "padroes": [
+        "realesrgan",
+        "real-esrgan",
+        "realesr"
+      ],
+      "conferido": false,
+      "conferencia": "card upstream, nao conferido no disco",
+      "autoriza_producao": true
+    },
+    {
+      "id": "hzwer/Practical-RIFE",
+      "slot": "video.interpolate",
+      "nome_front": "Interpolar frames",
+      "origem": "https://github.com/hzwer/Practical-RIFE",
+      "licenca": "OSS_CODE",
+      "spdx": "MIT",
+      "uso_comercial": "YES",
+      "runtime": "ncnn-vulkan",
+      "revisao": "",
+      "modalidades": [
+        "video"
+      ],
+      "hardware_minimo": "",
+      "limitacoes": "",
+      "fallback": "",
+      "estado": "STABLE",
+      "observacao": "",
+      "padroes": [
+        "rife"
+      ],
+      "conferido": false,
+      "conferencia": "card upstream, nao conferido no disco",
+      "autoriza_producao": true
+    },
+    {
+      "id": "FFmpeg/FFmpeg",
+      "slot": "media.transform",
+      "nome_front": "Transformação de mídia",
+      "origem": "https://ffmpeg.org",
+      "licenca": "OSS_CODE",
+      "spdx": "GPL-3.0",
+      "uso_comercial": "CONDITIONAL",
+      "runtime": "binário do sistema",
+      "revisao": "",
+      "modalidades": [
+        "video",
+        "audio",
+        "image"
+      ],
+      "hardware_minimo": "",
+      "limitacoes": "build GPL-3.0. Nunca redistribuído; chamado como processo separado",
+      "fallback": "",
+      "estado": "STABLE",
+      "observacao": "mesmo desenho do ComfyUI: separação por processo evita obra derivada",
+      "padroes": [
+        "ffmpeg",
+        "ffprobe"
+      ],
+      "conferido": true,
+      "conferencia": "`ffmpeg -version` nesta máquina: --enable-gpl --enable-version3",
+      "autoriza_producao": true
+    },
+    {
+      "id": "Wan-AI/Wan2.1-weights",
+      "slot": "video.generate.fast",
+      "nome_front": "Pesos Wan 2.1",
+      "origem": "https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B",
+      "licenca": "OPEN_WEIGHTS",
+      "spdx": "Apache-2.0",
+      "uso_comercial": "YES",
+      "runtime": "wangp",
+      "revisao": "",
+      "modalidades": [
+        "text",
+        "video"
+      ],
+      "hardware_minimo": "8 GB VRAM",
+      "limitacoes": "",
+      "fallback": "",
+      "estado": "STABLE",
+      "observacao": "",
+      "padroes": [
+        "wan2.1",
+        "wan_2.1",
+        "wan2_1"
+      ],
+      "conferido": false,
+      "conferencia": "card upstream, nao conferido no disco",
+      "autoriza_producao": true
+    },
+    {
+      "id": "Wan-AI/Wan2.2-weights",
+      "slot": "video.generate.quality",
+      "nome_front": "Pesos Wan 2.2",
+      "origem": "https://huggingface.co/Wan-AI",
+      "licenca": "OPEN_WEIGHTS",
+      "spdx": "Apache-2.0",
+      "uso_comercial": "YES",
+      "runtime": "wangp",
+      "revisao": "",
+      "modalidades": [
+        "text",
+        "video"
+      ],
+      "hardware_minimo": "16 GB VRAM",
+      "limitacoes": "no limite da VRAM desta máquina: 15.752 MiB de pico contra 16.376 totais",
+      "fallback": "",
+      "estado": "CANDIDATE",
+      "observacao": "",
+      "padroes": [
+        "wan2.2",
+        "wan_2.2",
+        "wan2_2"
+      ],
+      "conferido": false,
+      "conferencia": "card upstream, nao conferido no disco",
+      "autoriza_producao": true
+    }
+  ],
+  "tags_validas": [
+    "OSS_CODE",
+    "OPEN_WEIGHTS",
+    "SOURCE_AVAILABLE",
+    "RESEARCH_ONLY",
+    "NONCOMMERCIAL",
+    "COMMERCIAL_CONDITIONAL",
+    "PROVIDER_API",
+    "DATA_LICENSE_RESTRICTED",
+    "UNKNOWN_BLOCKED"
+  ],
+  "gerado_em": "2026-08-07T14:05:48.244Z"
+}

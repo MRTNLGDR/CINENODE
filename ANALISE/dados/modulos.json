@@ -1,0 +1,298 @@
+{
+  "concluidos": 18,
+  "total": 32,
+  "progresso": 92,
+  "modulos": [
+    {
+      "id": "M-01",
+      "titulo": "CONTRATOS E GRAFO",
+      "fase": "A",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-02",
+      "titulo": "CANVAS E PORTAS",
+      "fase": "A",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-03",
+      "titulo": "MANIFESTO E TUTORIAL",
+      "fase": "A",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-04",
+      "titulo": "REGISTRO DE ASSETS",
+      "fase": "A",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-05",
+      "titulo": "REGISTRO DE MODELOS",
+      "fase": "A",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-06",
+      "titulo": "JOBS E AGENDADOR",
+      "fase": "A",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-07",
+      "titulo": "MEGA ROTEADOR",
+      "fase": "A",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-08",
+      "titulo": "ADAPTER COMFY",
+      "fase": "A",
+      "estado": "EM_PROGRESSO",
+      "progresso": 90,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-09",
+      "titulo": "ALERTA DE CONCLUSÃO",
+      "fase": "A",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-10",
+      "titulo": "IMAGEM",
+      "fase": "B",
+      "estado": "EM_PROGRESSO",
+      "progresso": 90,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-11",
+      "titulo": "CONTROLE VISUAL",
+      "fase": "B",
+      "estado": "BLOQUEADO",
+      "progresso": 54,
+      "bloqueio": "nenhum destes nós existe ainda; depende de vendorizar SAM2, Depth Anything e DWPose no ComfyUI",
+      "nos_faltando": [
+        "vision.segment",
+        "vision.pose2d"
+      ]
+    },
+    {
+      "id": "M-14",
+      "titulo": "VÍDEO",
+      "fase": "B",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-16",
+      "titulo": "PÓS E RESTAURAÇÃO",
+      "fase": "B",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-17",
+      "titulo": "COR E VFX",
+      "fase": "B",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-18",
+      "titulo": "ÁUDIO DE FILME",
+      "fase": "B",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-19",
+      "titulo": "MASTER FINAL",
+      "fase": "B",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-20",
+      "titulo": "GERAÇÃO 3D",
+      "fase": "C",
+      "estado": "EM_PROGRESSO",
+      "progresso": 90,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-22",
+      "titulo": "TOPOLOGIA E UV",
+      "fase": "C",
+      "estado": "EM_PROGRESSO",
+      "progresso": 90,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-23",
+      "titulo": "TEXTURA E PBR",
+      "fase": "C",
+      "estado": "EM_PROGRESSO",
+      "progresso": 90,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-25",
+      "titulo": "EXPORTAÇÃO 3D",
+      "fase": "C",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-41",
+      "titulo": "WORKER LOCAL",
+      "fase": "F",
+      "estado": "EM_PROGRESSO",
+      "progresso": 90,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-42",
+      "titulo": "PROMPT COMPILER",
+      "fase": "F",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-43",
+      "titulo": "GATEWAY DE PROVEDORES",
+      "fase": "F",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-44",
+      "titulo": "INDEXADOR E BIBLIOTECA",
+      "fase": "F",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-34",
+      "titulo": "DNA HUMANO",
+      "fase": "E",
+      "estado": "BLOQUEADO",
+      "progresso": 88,
+      "bloqueio": "medida facial e corporal implementada e testada; malha 3D, textura e rig seguem no PERZON como specified_not_implemented",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-35",
+      "titulo": "SUPERFÍCIE HUMANA",
+      "fase": "E",
+      "estado": "BLOQUEADO",
+      "progresso": 75,
+      "bloqueio": "PERZON: material, mesh e sculpt ainda sem algoritmo implementado",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-36",
+      "titulo": "RIG E FACE",
+      "fase": "E",
+      "estado": "BLOQUEADO",
+      "progresso": 75,
+      "bloqueio": "PERZON: workspace rig ainda sem algoritmo implementado",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-37",
+      "titulo": "MOCAP E MOVIMENTO",
+      "fase": "E",
+      "estado": "BLOQUEADO",
+      "progresso": 75,
+      "bloqueio": "PERZON: workspace motion ainda sem algoritmo implementado",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-38",
+      "titulo": "CABELO E VESTUÁRIO",
+      "fase": "E",
+      "estado": "BLOQUEADO",
+      "progresso": 75,
+      "bloqueio": "PERZON: hair e garment ainda sem algoritmo implementado",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-39",
+      "titulo": "VOZ DO PERSONAGEM",
+      "fase": "E",
+      "estado": "BLOQUEADO",
+      "progresso": 75,
+      "bloqueio": "PERZON: workspace voice ainda sem algoritmo implementado",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-40",
+      "titulo": "ENTREGA DE PERSONAGEM",
+      "fase": "E",
+      "estado": "BLOQUEADO",
+      "progresso": 75,
+      "bloqueio": "PERZON: formats, connectors e game ainda sem algoritmo implementado",
+      "nos_faltando": []
+    },
+    {
+      "id": "M-52",
+      "titulo": "EMPACOTAMENTO",
+      "fase": "G",
+      "estado": "CONCLUIDO",
+      "progresso": 100,
+      "bloqueio": "",
+      "nos_faltando": []
+    }
+  ]
+}

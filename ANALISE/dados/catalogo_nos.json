@@ -1,0 +1,446 @@
+[
+  {
+    "type": "input.text",
+    "category": "Entrada",
+    "label": "Prompt",
+    "inputs": [],
+    "outputs": [
+      "text"
+    ],
+    "campos": 1
+  },
+  {
+    "type": "input.asset",
+    "category": "Entrada",
+    "label": "Asset",
+    "inputs": [],
+    "outputs": [
+      "media"
+    ],
+    "campos": 1
+  },
+  {
+    "type": "llm.enhance",
+    "category": "LLM",
+    "label": "Aprimorar prompt",
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "text"
+    ],
+    "campos": 3
+  },
+  {
+    "type": "image.generate",
+    "category": "Imagem",
+    "label": "Gerar imagem",
+    "inputs": [
+      "text",
+      "media?"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 12
+  },
+  {
+    "type": "video.generate",
+    "category": "Vídeo",
+    "label": "Gerar take",
+    "inputs": [
+      "text",
+      "image?"
+    ],
+    "outputs": [
+      "video"
+    ],
+    "campos": 16
+  },
+  {
+    "type": "vision.edge",
+    "category": "Controle visual",
+    "label": "Contorno Canny",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 3
+  },
+  {
+    "type": "vision.softedge",
+    "category": "Controle visual",
+    "label": "Contorno suave",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 1
+  },
+  {
+    "type": "vision.normals",
+    "category": "Controle visual",
+    "label": "Mapa de normais",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 3
+  },
+  {
+    "type": "vision.structure",
+    "category": "Controle visual",
+    "label": "Mapa de estrutura",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 2
+  },
+  {
+    "type": "vision.threshold",
+    "category": "Controle visual",
+    "label": "Limiar adaptativo",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 2
+  },
+  {
+    "type": "vision.depth",
+    "category": "Controle visual",
+    "label": "Mapa de profundidade",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 2
+  },
+  {
+    "type": "image.upscale",
+    "category": "Pós",
+    "label": "Upscale AI imagem",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 3
+  },
+  {
+    "type": "image.resize",
+    "category": "Pós",
+    "label": "Resize Lanczos",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 2
+  },
+  {
+    "type": "video.interpolate",
+    "category": "Pós",
+    "label": "Interpolar FPS",
+    "inputs": [
+      "video"
+    ],
+    "outputs": [
+      "video"
+    ],
+    "campos": 2
+  },
+  {
+    "type": "video.upscale",
+    "category": "Pós",
+    "label": "Upscale AI vídeo",
+    "inputs": [
+      "video"
+    ],
+    "outputs": [
+      "video"
+    ],
+    "campos": 3
+  },
+  {
+    "type": "media.export",
+    "category": "Saída",
+    "label": "Exportar filme",
+    "inputs": [
+      "video"
+    ],
+    "outputs": [
+      "video"
+    ],
+    "campos": 4
+  },
+  {
+    "type": "output.preview",
+    "category": "Saída",
+    "label": "Saída/preview",
+    "inputs": [
+      "media"
+    ],
+    "outputs": [
+      "media"
+    ],
+    "campos": 0
+  },
+  {
+    "type": "text.concat",
+    "category": "Utilidades",
+    "label": "Concatenar prompt",
+    "inputs": [
+      "text*"
+    ],
+    "outputs": [
+      "text"
+    ],
+    "campos": 4
+  },
+  {
+    "type": "video.concat",
+    "category": "Utilidades",
+    "label": "Combinar vídeos",
+    "inputs": [
+      "video*"
+    ],
+    "outputs": [
+      "video"
+    ],
+    "campos": 3
+  },
+  {
+    "type": "video.trim",
+    "category": "Utilidades",
+    "label": "Cortar vídeo",
+    "inputs": [
+      "video"
+    ],
+    "outputs": [
+      "video"
+    ],
+    "campos": 2
+  },
+  {
+    "type": "audio.extract",
+    "category": "Áudio",
+    "label": "Extrair áudio",
+    "inputs": [
+      "video"
+    ],
+    "outputs": [
+      "audio"
+    ],
+    "campos": 1
+  },
+  {
+    "type": "audio.mux",
+    "category": "Áudio",
+    "label": "Aplicar áudio ao vídeo",
+    "inputs": [
+      "video",
+      "audio"
+    ],
+    "outputs": [
+      "video"
+    ],
+    "campos": 2
+  },
+  {
+    "type": "model3d.generate",
+    "category": "3D",
+    "label": "Gerar 3D",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "model3d"
+    ],
+    "campos": 8
+  },
+  {
+    "type": "human.dna",
+    "category": "Personagem",
+    "label": "DNA humano",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "media"
+    ],
+    "campos": 4
+  },
+  {
+    "type": "media.scopes",
+    "category": "Análise",
+    "label": "Scopes e falsa cor",
+    "inputs": [
+      "media"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 2
+  },
+  {
+    "type": "media.filmlook",
+    "category": "Pós",
+    "label": "Acabamento de película",
+    "inputs": [
+      "video"
+    ],
+    "outputs": [
+      "video"
+    ],
+    "campos": 5
+  },
+  {
+    "type": "human.mesh.check",
+    "category": "Personagem",
+    "label": "Checar malha",
+    "inputs": [
+      "model3d"
+    ],
+    "outputs": [
+      "data"
+    ],
+    "campos": 0
+  },
+  {
+    "type": "human.mesh.repair",
+    "category": "Personagem",
+    "label": "Reparar malha",
+    "inputs": [
+      "model3d"
+    ],
+    "outputs": [
+      "model3d"
+    ],
+    "campos": 1
+  },
+  {
+    "type": "human.mesh.normalize",
+    "category": "Personagem",
+    "label": "Escala canônica",
+    "inputs": [
+      "model3d"
+    ],
+    "outputs": [
+      "model3d"
+    ],
+    "campos": 1
+  },
+  {
+    "type": "human.rig.build",
+    "category": "Personagem",
+    "label": "Esqueleto e pesos",
+    "inputs": [
+      "model3d"
+    ],
+    "outputs": [
+      "data"
+    ],
+    "campos": 1
+  },
+  {
+    "type": "human.rig.validate",
+    "category": "Personagem",
+    "label": "Validar rig",
+    "inputs": [
+      "model3d"
+    ],
+    "outputs": [
+      "data"
+    ],
+    "campos": 0
+  },
+  {
+    "type": "human.material.maps",
+    "category": "Personagem",
+    "label": "Mapas PBR",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "image"
+    ],
+    "campos": 4
+  },
+  {
+    "type": "human.material.check",
+    "category": "Personagem",
+    "label": "Validar PBR",
+    "inputs": [
+      "image"
+    ],
+    "outputs": [
+      "data"
+    ],
+    "campos": 0
+  },
+  {
+    "type": "model3d.retopology",
+    "category": "3D",
+    "label": "Retopologia",
+    "inputs": [
+      "model3d"
+    ],
+    "outputs": [
+      "model3d"
+    ],
+    "campos": 5
+  },
+  {
+    "type": "model3d.texture",
+    "category": "3D",
+    "label": "UV e textura",
+    "inputs": [
+      "model3d",
+      "image"
+    ],
+    "outputs": [
+      "model3d"
+    ],
+    "campos": 2
+  },
+  {
+    "type": "model3d.animate",
+    "category": "3D",
+    "label": "Animar malha",
+    "inputs": [
+      "model3d"
+    ],
+    "outputs": [
+      "model3d"
+    ],
+    "campos": 3
+  },
+  {
+    "type": "model3d.export",
+    "category": "3D",
+    "label": "Exportar malha",
+    "inputs": [
+      "model3d"
+    ],
+    "outputs": [
+      "model3d"
+    ],
+    "campos": 2
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "gate_id": "GATE-PKG",
+  "module_id": "M-02",
+  "status": "PASS",
+  "summary": "7 passed, 1 warning in 0.03s",
+  "command": "\"D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\.runtime\\venv\\Scripts\\python.exe\" -m pytest tests/test_empacotamento.py -q",
+  "recorded_at": "2026-08-07T09:31:59.741Z"
+}

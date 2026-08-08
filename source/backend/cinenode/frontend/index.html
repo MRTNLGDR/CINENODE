@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#090b10" />
+  <title>Avangard CineNode Local</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <noscript>Este aplicativo requer JavaScript habilitado.</noscript>
+  <!-- O teclado percorria a navegacao inteira a cada troca de rota antes
+       de chegar ao conteudo. O atalho aparece so quando recebe foco. -->
+  <a class="skip-link" href="#conteudo">Ir para o conteudo</a>
+  <div id="app" aria-live="polite"></div>
+  <div id="modal-root"></div>
+  <div id="toast-root" class="toast-root" aria-live="assertive"></div>
+  <input id="asset-upload-input" type="file" hidden accept="image/*,video/*,audio/*,.json,.glb,.gltf" />
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "root": "D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\Avangard One\\opensources\\quarantine\\ComfyUI",
+  "status": "ACCEPTABLE",
+  "scanned_files": 999,
+  "text_files": 949,
+  "binary_files": 0,
+  "summary": {
+    "critical": 0,
+    "high": 0,
+    "warn": 3,
+    "info": 4
+  },
+  "findings": [
+    {
+      "severity": "INFO",
+      "kind": "INVISIBLE_UNICODE",
+      "path": "comfy/text_encoders/ace_lyrics_tokenizer/vocab.json",
+      "detail": "ZERO_WIDTH_OR_DIRECTIONAL_MARK (allowlist do manifesto)",
+      "line": 6573,
+      "column": 14,
+      "codepoint": "U+200B"
+    },
+    {
+      "severity": "INFO",
+      "kind": "INVISIBLE_UNICODE",
+      "path": "comfy/text_encoders/ace_lyrics_tokenizer/vocab.json",
+      "detail": "ZERO_WIDTH_OR_DIRECTIONAL_MARK (allowlist do manifesto)",
+      "line": 6574,
+      "column": 14,
+      "codepoint": "U+200C"
+    },
+    {
+      "severity": "INFO",
+      "kind": "INVISIBLE_UNICODE",
+      "path": "comfy/text_encoders/ace_lyrics_tokenizer/vocab.json",
+      "detail": "ZERO_WIDTH_OR_DIRECTIONAL_MARK (allowlist do manifesto)",
+      "line": 6575,
+      "column": 14,
+      "codepoint": "U+200D"
+    },
+    {
+      "severity": "INFO",
+      "kind": "INVISIBLE_UNICODE",
+      "path": "comfy/text_encoders/ace_lyrics_tokenizer/vocab.json",
+      "detail": "ZERO_WIDTH_OR_DIRECTIONAL_MARK (allowlist do manifesto)",
+      "line": 6576,
+      "column": 14,
+      "codepoint": "U+200E"
+    },
+    {
+      "severity": "WARN",
+      "kind": "INVISIBLE_UNICODE",
+      "path": "comfy_api_nodes/apis/heygen.py",
+      "detail": "VARIATION_SELECTOR",
+      "line": 162,
+      "column": 39,
+      "codepoint": "U+FE0F"
+    },
+    {
+      "severity": "WARN",
+      "kind": "INVISIBLE_UNICODE",
+      "path": "comfy_api_nodes/apis/heygen.py",
+      "detail": "VARIATION_SELECTOR",
+      "line": 165,
+      "column": 29,
+      "codepoint": "U+FE0F"
+    },
+    {
+      "severity": "WARN",
+      "kind": "INVISIBLE_UNICODE",
+      "path": "comfy_api_nodes/apis/heygen.py",
+      "detail": "VARIATION_SELECTOR",
+      "line": 170,
+      "column": 39,
+      "codepoint": "U+FE0F"
+    }
+  ]
+}
