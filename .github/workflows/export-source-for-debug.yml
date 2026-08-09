@@ -1,0 +1,54 @@
+name: Export CineNode source for debug
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build source snapshot
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import zipfile
+
+          root = Path.cwd()
+          include_roots = [
+              Path('src'), Path('tests'), Path('scripts'), Path('docs'),
+              Path('.cinenode'), Path('.github/workflows'),
+          ]
+          include_files = [
+              Path('pyproject.toml'), Path('MANIFEST.in'), Path('README.md'),
+              Path('RUN_CINENODE.bat'), Path('run.sh'), Path('.env.example'),
+              Path('.gitignore'), Path('.gitattributes'), Path('SECURITY.md'),
+              Path('LICENSE'),
+          ]
+          with zipfile.ZipFile('cinenode-source.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+              for base in include_roots:
+                  if not base.exists():
+                      continue
+                  for path in sorted(base.rglob('*')):
+                      if path.is_file() and '__pycache__' not in path.parts:
+                          archive.write(path, path.as_posix())
+              for path in include_files:
+                  if path.is_file():
+                      archive.write(path, path.as_posix())
+          print(Path('cinenode-source.zip').stat().st_size)
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cinenode-source-debug
+          path: cinenode-source.zip
+          if-no-files-found: error
+          retention-days: 1
