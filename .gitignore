@@ -1,28 +1,28 @@
-# Runtime e artefatos reproduzíveis — nada aqui é fonte.
-.runtime/
-data/
+.venv/
 __pycache__/
-*.pyc
+*.py[cod]
 .pytest_cache/
-node_modules/
-
-# Clones de terceiros: são materializados por scripts/bootstrap-opensources.
-# O manifesto e o lock ficam versionados; os bytes dos upstreams, não.
-Avangard One/opensources/upstream/
-Avangard One/opensources/quarantine/
-Avangard One/opensources/forks/
-Avangard One/opensources/integrations/
-
-# Saídas de build
-source/desktop/src-tauri/target/
-source/desktop/src-tauri/binaries/
-source/desktop/src-tauri/icons/android/
-source/desktop/src-tauri/icons/ios/
-installers/*.msi
-installers/*.exe
-
-# Pesos e mídia gerada nunca entram no repositório
-*.safetensors
-*.gguf
-*.ckpt
-*.glb
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+.env
+.env.*
+!.env.example
+runtime/*
+!runtime/.gitkeep
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+*.log
+models/
+outputs/
+cache/
+ComfyUI/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

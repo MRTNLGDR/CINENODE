@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cinenode"
+version = "0.1.0"
+description = "CineNode — local-first nodal canvas for cinema, media automation and local AI"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+authors = [{name = "MRTNLGDR"}]
+license = {text = "All rights reserved"}
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.30,<1",
+  "pydantic>=2.8,<3",
+  "httpx>=0.27,<1",
+  "python-multipart>=0.0.12,<1",
+  "Pillow>=10.4,<12",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8.3,<10",
+  "pytest-asyncio>=0.24,<2",
+  "build>=1.2,<2",
+]
+media = [
+  "opencv-python-headless>=4.10,<5.1",
+  "numpy>=1.26,<3",
+]
+
+[project.scripts]
+cinenode = "cinenode.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["cinenode*"]
+
+[tool.setuptools.package-data]
+cinenode = ["static/*", "static/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra --strict-markers"
+asyncio_mode = "auto"

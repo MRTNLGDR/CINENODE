@@ -1,1 +1,0 @@
-{"default":{"identifier":"default","description":"Local desktop capability","local":true,"windows":["main"],"permissions":["core:default","shell:allow-spawn","process:default"]}}

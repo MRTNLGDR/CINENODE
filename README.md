@@ -1,126 +1,124 @@
-# Avangard CineNode Local
+# CineNode
 
-Aplicativo local-first para criar, executar e auditar workflows nodais de imagens e filmes. O núcleo funciona sem API paga: projetos, DAG, fila, assets, banco, governança e pós-processamento são locais. As engines de inferência e seus pesos são instalados separadamente para evitar um pacote inicial gigantesco e para preservar as licenças de cada modelo.
+Canvas nodal **local-first** para organizar e executar fluxos de cinema, imagem, vídeo, áudio, automação e IA local.
 
-## O que está implementado
+> **Separação obrigatória:** CineNode e PERZON são produtos distintos. Este repositório **não contém** código, rotas, operações, backlog ou métricas do PERZON. Uma integração futura deve acontecer por API/plugin versionado, sem fundir os dois sistemas.
 
-- Editor nodal com criação, conexão, arraste, inspeção, exclusão, undo/redo, validação de ciclos e persistência.
-- Executor DAG real com fila SQLite, progresso, cancelamento, retry, recuperação após queda, registro de outputs e erros acionáveis.
-- Geração local por `stable-diffusion.cpp` para imagem e vídeo, com perfis quantizados.
-- Integrações opcionais reais com WanGP pela API Python oficial e ComfyUI pela API HTTP local.
-- LLM local por Ollama e agente OpenCode usando modelo Ollama.
-- Upscale de imagem/frames por Real-ESRGAN NCNN Vulkan, interpolação por RIFE ou FFmpeg e exportação H.264, H.265, ProRes e AV1.
-- Pipeline 4K/8K eficiente: gerar na resolução ideal do modelo, ampliar em tiles, interpolar e codificar no final.
-- SQLite com migrations, WAL, constraints, backup/restauração, exportação de projeto e checksums.
-- Governança em `/api/governance/snapshot`, polling de 15 s, refetch no foco, SSE e atualização manual.
-- Interface de projetos, workflows, jobs, galeria, engines, modelos, configurações, governança e conta superadmin.
-- Scripts para Windows, macOS, Linux, Docker, download de modelos com checksum, build Tauri 2 e auditoria de upstream em quarentena.
+## O que já funciona
 
-## Hardware-alvo
+- canvas visual sem dependências JavaScript externas;
+- projetos e workflows persistidos em SQLite/WAL;
+- validação de grafo tipado e detecção de ciclos;
+- fila de jobs, cancelamento, interrupção e retomada;
+- eventos de execução e acompanhamento pela interface;
+- upload e download de assets com SHA-256;
+- nós reais de texto, JSON, matemática, condição e utilidades;
+- leitura de imagens com Pillow;
+- `ffprobe` e transcodificação via FFmpeg;
+- chat local via Ollama;
+- envio de workflows API JSON ao ComfyUI;
+- API FastAPI documentada em `/docs`;
+- execução restrita ao computador local por padrão.
 
-O perfil principal foi preparado para Alienware 18 com NVIDIA RTX 4090 Laptop 24 GB, CPU i9 e 64 GB de RAM. A arquitetura limita trabalhos GPU concorrentes a um por padrão, usa quantização/offload e separa geração de upscale para reduzir picos de VRAM.
+CineNode não devolve mídia falsa quando uma engine está ausente. O job falha com um código acionável, como `FFMPEG_MISSING`, `OLLAMA_FAILED` ou `COMFY_WORKFLOW_REQUIRED`.
 
-## Início rápido
+## Windows — um clique
 
-### Windows
+1. Baixe ou clone o repositório.
+2. Execute `RUN_CINENODE.bat`.
+3. O script instala Python 3.12 pelo `winget` quando necessário, cria `.venv`, instala o núcleo e abre `http://127.0.0.1:8787`.
+
+Para instalar também FFmpeg, Ollama e o código do ComfyUI:
 
 ```powershell
-.\install.ps1
-.\run.bat
+.\INSTALL_CINENODE.bat -WithEngines
 ```
 
-Instalação completa de engines e modelos recomendados:
+Também é possível instalar separadamente:
 
 ```powershell
-.\scripts\install-engines.ps1 -Core -WithLLM -WithOpenCode
-.\scripts\download-models.ps1 -Bundle recommended
-.\run.bat
+.\INSTALL_CINENODE.bat -WithFFmpeg
+.\INSTALL_CINENODE.bat -WithOllama
+.\INSTALL_CINENODE.bat -WithComfyUI
 ```
 
-O VAE do Z-Image vem do repositório oficial FLUX.1-schnell e exige aceite prévio no Hugging Face. Defina `HF_TOKEN` antes do download.
+Pesos de modelos não são baixados silenciosamente. Modelos possuem tamanhos, licenças e requisitos de VRAM diferentes e devem ser escolhidos conscientemente no Ollama ou ComfyUI.
 
-### Linux/macOS
+## Linux
 
 ```bash
+chmod +x install.sh run.sh
 ./install.sh
-./scripts/install-engines.sh --with-llm --with-opencode
-./scripts/download-models.sh recommended
 ./run.sh
 ```
 
-### Docker
+## Desenvolvimento
 
 ```bash
-docker compose up --build
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# Linux/macOS: source .venv/bin/activate
+python -m pip install -e ".[test]"
+pytest -q
+python -m build
+cinenode doctor
+cinenode run
 ```
 
-Abra `http://127.0.0.1:8787`. O Docker é uma alternativa para o núcleo/API; engines GPU nativas são mais eficientes fora do container e podem ser montadas em `data/engines`.
+## Nós incluídos
 
-## Perfis recomendados
+| Categoria | Nós |
+|---|---|
+| Entrada | texto, número, JSON e arquivo |
+| Texto | template e concatenação |
+| Lógica | soma, multiplicação, condição e merge JSON |
+| Utilitário | atraso cancelável |
+| Mídia | análise de imagem, ffprobe e transcodificação FFmpeg |
+| IA local | Ollama Chat e workflow ComfyUI |
+| Saída | texto e JSON |
 
-| Uso | Perfil | Base | Pós-processamento |
-|---|---|---|---|
-| Imagem rápida/realista | `z-image-turbo-fast` | 1024 px, 8 steps | Real-ESRGAN 2×/4× para 4K/8K |
-| Vídeo rápido | `wan21-t2v-1.3b-fast` | 832×480, 33 frames | RIFE 48/60 fps + Real-ESRGAN + export |
-| Vídeo premium | WanGP externo | LTX/MiniMax/Wan conforme licença e VRAM | SeedVR/FlashVSR/RIFE ou nós locais |
-| LLM/orquestração | `qwen3:8b-q4_K_M` | Ollama | OpenCode opcional |
+## ComfyUI
 
-Mais detalhes: `docs/MODEL_MATRIX.md`.
+Exporte um workflow no formato **API JSON**, coloque-o no parâmetro `workflow` do nó `ComfyUI Workflow` e use `{{prompt}}` em qualquer campo textual que deva receber o prompt conectado.
+
+O ComfyUI continua sendo um sidecar independente em `127.0.0.1:8188`; ele não é incorporado ao servidor CineNode.
+
+## Dados locais
+
+Por padrão, todos os dados ficam em `runtime/`:
+
+```text
+runtime/
+├── cinenode.sqlite3
+├── uploads/
+├── outputs/
+└── logs/
+```
+
+A variável `CINENODE_HOME` muda essa pasta. Caminhos de assets são relativos ao workspace, permitindo mover a instalação sem gravar paths absolutos no banco.
+
+## Segurança
+
+- bind padrão em `127.0.0.1`;
+- middleware rejeita clientes e `Host` externos;
+- integrações HTTP aceitam somente destinos de loopback;
+- upload possui limite configurável;
+- subprocessos são executados sem shell;
+- segredos, bancos, outputs, modelos e `.env` não são versionados.
+
+Não exponha a porta do CineNode na internet sem autenticação, TLS, proxy reverso e uma revisão de segurança específica.
 
 ## Estrutura
 
 ```text
-Avangard-CineNode-Local-v0.1.0/
-├── Avangard One/opensources/       # upstreams imutáveis, forks, checksums e licenças
-├── source/backend/cinenode/        # API, domínio, banco, DAG, jobs, engines, governança
-├── source/frontend/                # runtime web validado, sem dependências JS externas
-├── source/frontend-react/          # integração React Query + Vibe workflow-builder
-├── source/desktop/src-tauri/       # shell Tauri 2 e sidecar
-├── scripts/                        # instalação, engines, modelos, build e validação
-├── tests/                          # unitários, integração, mídia e pacote
-├── docs/                           # arquitetura, segurança, operação e provas
-├── governance/                     # roadmap/tarefas/alertas versionados
-├── installers/                     # artefatos nativos gerados no SO-alvo
-└── data/                           # runtime local; não deve ser versionado
+src/cinenode/
+├── api.py          # API, assets e frontend
+├── db.py           # SQLite e persistência relocável
+├── workflow.py     # validação e execução DAG
+├── jobs.py         # fila, cancelamento e retomada
+├── engines.py      # FFmpeg, Ollama e ComfyUI
+├── catalog.py      # contrato dos nós
+└── static/         # canvas visual
 ```
 
-## Comandos operacionais
-
-```bash
-# Inicializar banco e diretórios
-python -m cinenode init
-
-# Abrir servidor local
-python -m cinenode run
-
-# Diagnóstico de banco, paths e engines
-python -m cinenode doctor
-
-# Backup consistente
-python -m cinenode backup
-
-# Testes
-PYTHONPATH=source/backend pytest -q
-```
-
-## Política de modelos e 8K
-
-“4K/8K” significa saída final real com dimensões 3840×2160 ou 7680×4320. O sistema não falsifica que modelos de difusão geram vídeo nativo em 8K. A rota eficiente é gerar no sweet spot do checkpoint, preservar composição/temporalidade, aplicar upscale em tiles e só então codificar o master. Isso reduz VRAM, tempo e artefatos.
-
-## Segurança
-
-- Upstreams pinados passam por clone em quarentena, varredura de Unicode invisível, inventário de scripts/binários, checksums e promoção atômica.
-- Bind padrão `127.0.0.1`.
-- API/mídia bloqueiam clientes não locais.
-- Docker só expõe `127.0.0.1` e ativa proxy loopback explicitamente.
-- Token local aleatório, uploads limitados, nomes sanitizados e proteção de path traversal.
-- Subprocessos sem shell, argumentos em lista, timeout e cancelamento.
-- Sem segredos no repositório.
-
-## Licenças importantes
-
-O aplicativo é MIT. OpenCode, Vibe Workflow, Open Generative AI, stable-diffusion.cpp, Real-ESRGAN NCNN e RIFE NCNN são tratados conforme suas licenças. ComfyUI fica como sidecar GPL. WanGP usa licença comunitária própria com restrições de incorporação/white-label/comercialização; por isso não é incluído no ZIP e exige aceite explícito. Consulte `THIRD_PARTY_NOTICES.md`.
-
-## Estado de validação desta entrega
-
-O núcleo API/web, banco, DAG, jobs, upload, backup/restauração, exportação, FFmpeg, segurança e supply-chain gate passaram por 28 testes automatizados; o navegador E2E passou sem erro de console ou rede. A instalação Linux de um clique foi executada a partir do pacote, incluindo fallback automático, `init`, `doctor`, `run.sh` e `/api/health`. Build Tauri/Setup.exe, instalação Windows e geração CUDA com pesos reais dependem do Windows/RTX 4090 e permanecem gates explícitos, nunca marcados como aprovados sem execução. Consulte `docs/VALIDATION.md` e `TEST_REPORT.md`.
+Documentação adicional está em `docs/`.

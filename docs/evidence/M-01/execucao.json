@@ -1,8 +1,0 @@
-{
-  "gate_id": "GATE-FUNC",
-  "module_id": "M-01",
-  "status": "PASS",
-  "summary": "PASS: 3 nÃ³(s) com rÃ³tulo, portas, campos visuais e executor",
-  "command": "\"D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\.runtime\\venv\\Scripts\\python.exe\" scripts/verify_module.py M-01",
-  "recorded_at": "2026-08-07T09:31:43.501Z"
-}

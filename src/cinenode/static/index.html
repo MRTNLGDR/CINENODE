@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>CineNode</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark"><span></span><span></span><span></span></div>
+        <div><strong>CineNode</strong><small>LOCAL NODAL CANVAS</small></div>
+      </div>
+      <div class="workspace-controls">
+        <select id="projectSelect" title="Projeto"></select>
+        <button id="newProjectBtn" class="icon-button" title="Novo projeto">＋</button>
+        <select id="workflowSelect" title="Workflow"></select>
+        <button id="newWorkflowBtn" class="icon-button" title="Novo workflow">＋</button>
+      </div>
+      <div class="toolbar">
+        <button id="uploadBtn">Enviar arquivo</button>
+        <button id="saveBtn">Salvar</button>
+        <button id="runBtn" class="primary">Executar</button>
+        <button id="cancelBtn" class="danger" disabled>Cancelar</button>
+      </div>
+    </header>
+
+    <main class="shell">
+      <aside class="left-panel panel">
+        <div class="panel-title"><span>NÓS</span><span id="catalogCount" class="muted"></span></div>
+        <input id="nodeSearch" class="search" placeholder="Buscar nó…" autocomplete="off">
+        <div id="catalog" class="catalog"></div>
+        <div class="panel-title engine-title"><span>ENGINES</span><button id="refreshEngines" class="link-button">atualizar</button></div>
+        <div id="engines" class="engines"></div>
+      </aside>
+
+      <section id="canvasViewport" class="canvas-viewport">
+        <div id="canvasTransform" class="canvas-transform">
+          <svg id="edgeLayer" class="edge-layer" width="5000" height="3000"></svg>
+          <div id="nodeLayer" class="node-layer"></div>
+        </div>
+        <div class="canvas-tools">
+          <button id="fitBtn" title="Centralizar">⌖</button>
+          <button id="clearBtn" title="Limpar canvas">⌫</button>
+        </div>
+        <div id="emptyHint" class="empty-hint">
+          <strong>Monte seu fluxo</strong>
+          <span>Clique em um nó à esquerda. Conecte uma saída a uma entrada e execute.</span>
+        </div>
+      </section>
+
+      <aside class="right-panel panel">
+        <div class="panel-title"><span>INSPECTOR</span><span id="selectionType" class="muted">nenhum</span></div>
+        <div id="inspector" class="inspector empty-inspector">Selecione um nó no canvas.</div>
+        <div class="panel-title jobs-title"><span>EXECUÇÃO</span><span id="jobState" class="state-pill idle">IDLE</span></div>
+        <div id="jobPanel" class="job-panel">
+          <div class="progress"><span id="jobProgress"></span></div>
+          <pre id="jobOutput">Nenhum job executado.</pre>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="statusbar">
+      <span id="statusText">Inicializando CineNode…</span>
+      <span class="separator"></span>
+      <span id="graphStats">0 nós · 0 conexões</span>
+      <span class="spacer"></span>
+      <span class="distinct">CineNode ≠ PERZON</span>
+      <span id="versionText"></span>
+    </footer>
+  </div>
+
+  <input id="fileInput" type="file" hidden>
+  <div id="toastRoot" class="toast-root"></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

@@ -1,8 +1,0 @@
-{
-  "gate_id": "GATE-MEDIDA",
-  "module_id": "M-34",
-  "status": "PASS",
-  "summary": "21 passed, 1 warning in 0.06s",
-  "command": "\"D:\\AIIA\\01-apps-canonicos\\18-aiia-visual\\BASE TESTE\\Avangard-CineNode-Local-v0.1.0\\Avangard-CineNode-Local-v0.1.0\\.runtime\\venv\\Scripts\\python.exe\" -m pytest tests/test_humandna.py -q",
-  "recorded_at": "2026-08-07T09:32:37.741Z"
-}

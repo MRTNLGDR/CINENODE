@@ -1,53 +1,44 @@
-# Architecture
-
-## Runtime flow
+# Arquitetura CineNode
 
 ```text
-Browser/Tauri
-    │ same-origin HTTP + SSE
+Browser local
+    │ HTTP + polling/SSE
     ▼
-FastAPI control plane ─── /api/governance/snapshot
-    │                         │
-    ├── Projects/Settings     ├── tasks/alerts/changelog/logs/docs
-    ├── Upload/Assets         └── SQLite source of truth
-    ├── Jobs/Queue
-    └── Workflow validator/executor
-             │ topological order, typed ports, cancellation
-             ├── Ollama/OpenCode
-             ├── stable-diffusion.cpp
-             ├── ComfyUI sidecar
-             ├── WanGP sidecar
-             ├── Real-ESRGAN NCNN
-             ├── RIFE NCNN
-             └── FFmpeg
-                    │
-                    ▼
-            checksummed local assets/outputs
+FastAPI control plane
+    ├── projetos/workflows
+    ├── assets com SHA-256
+    ├── fila de jobs
+    ├── validação e execução DAG
+    └── SQLite WAL
+           │
+           ├── FFmpeg/ffprobe (processo local)
+           ├── Ollama 127.0.0.1:11434
+           └── ComfyUI 127.0.0.1:8188
 ```
 
-## Boundaries
+O plano de controle permanece utilizável sem GPU. Engines são sidecars ou binários substituíveis. Um node sem sua engine retorna erro explícito; não existe fallback que finja gerar mídia.
 
-- **Control plane:** lightweight Python/FastAPI, always available without GPU models.
-- **Inference plane:** external binaries/processes. No model is loaded inside the web server, preventing VRAM leaks and allowing replacement.
-- **Data plane:** SQLite WAL plus local filesystem. Database stores metadata and paths; large media stays in files.
-- **Desktop shell:** Tauri 2 starts a frozen backend sidecar and opens the local URL.
-- **Open-source archive:** immutable upstreams are outside application source; adaptations belong in `forks/` or `integrations/`.
+## Estados de job
 
-## Workflow contract
+```text
+QUEUED → RUNNING → SUCCEEDED
+                 ├→ FAILED
+                 ├→ CANCELLED     (ação do usuário)
+                 └→ INTERRUPTED   (processo encerrado)
+```
 
-A graph contains version, nodes, edges and metadata. Validation rejects duplicate IDs, dangling edges, self-links, unknown node types, incompatible ports and cycles. Execution uses Kahn topological ordering. Each node receives resolved upstream values and returns a typed result. Outputs become assets with SHA-256 and job/project ownership.
+`FAILED`, `CANCELLED` e `INTERRUPTED` podem ser retomados. O shutdown não converte uma interrupção operacional em cancelamento do usuário.
 
-## Queue and recovery
+## Grafo
 
-One GPU job is active by default. A job moves through `QUEUED → RUNNING → SUCCEEDED|FAILED|CANCELLED`. Cancellation is checked between nodes and while subprocesses run. At startup, abandoned `RUNNING` records become `FAILED/PROCESS_INTERRUPTED`, preserving evidence instead of pretending success.
+Cada workflow possui nós, conexões e metadados. A validação rejeita:
 
-## 4K/8K strategy
+- IDs duplicados;
+- tipos de nós desconhecidos;
+- endpoints inexistentes;
+- portas incompatíveis;
+- mais de uma conexão na mesma entrada;
+- auto-conexões;
+- ciclos.
 
-1. Generate at the checkpoint's efficient base resolution.
-2. Preserve seed, prompt and source artifacts.
-3. Upscale stills/frames with Real-ESRGAN, using tiles when required.
-4. Interpolate temporal frames with RIFE where needed.
-5. Encode only once into the delivery codec.
-6. Keep the intermediate master for repeatable exports.
-
-This avoids allocating native 8K diffusion latents or long 8K video tensors on a 24 GB GPU.
+A execução usa ordenação topológica e persiste eventos por nó.
