@@ -1,0 +1,162 @@
+name: CineNode bootstrap and verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".cinenode/bootstrap_core_v1.py"
+      - ".cinenode/bootstrap_product_v1.py"
+      - ".cinenode/bootstrap_patch_v1.py"
+      - ".github/workflows/cinenode-bootstrap.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cinenode-main-bootstrap
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Generate canonical CineNode tree when needed
+        run: |
+          python .cinenode/bootstrap_core_v1.py
+          python .cinenode/bootstrap_product_v1.py
+          python .cinenode/bootstrap_patch_v1.py
+
+      - name: Install development toolchain
+        run: |
+          python -m pip install --disable-pip-version-check -U pip setuptools wheel
+          python -m pip install -e '.[dev]'
+
+      - name: Normalize and lint
+        run: |
+          python -m ruff check . --fix
+          python -m ruff format .
+          python -m ruff check .
+          python -m ruff format --check .
+
+      - name: Test with coverage
+        run: |
+          python -m pytest -q --junitxml=junit.xml --cov=cinenode --cov-report=json:coverage.json --cov-report=term-missing
+
+      - name: Build and inspect wheel
+        run: |
+          rm -rf dist build
+          python -m build --wheel
+          python scripts/check_wheel.py dist/*.whl
+
+      - name: Clean-room installation
+        run: |
+          python -m venv /tmp/cinenode-clean
+          /tmp/cinenode-clean/bin/python -m pip install --disable-pip-version-check -U pip
+          /tmp/cinenode-clean/bin/python -m pip install dist/*.whl
+          cd /tmp
+          /tmp/cinenode-clean/bin/python -c "import cinenode; from cinenode.api.app import create_app; app=create_app(); assert app.title=='CineNode'; print(cinenode.__version__, len(app.routes))"
+
+      - name: HTTP smoke
+        run: python scripts/http_smoke.py
+
+      - name: Source verification and evidence
+        run: |
+          python -m cinenode verify --source .
+          python - <<'PY'
+          from pathlib import Path
+          import datetime, hashlib, json, os, xml.etree.ElementTree as ET, zipfile
+
+          root = Path.cwd()
+          suite_root = ET.parse("junit.xml").getroot()
+          suite = suite_root if suite_root.tag == "testsuite" else suite_root.find("testsuite")
+          tests = {key: int(float(suite.attrib.get(key, "0"))) for key in ("tests", "failures", "errors", "skipped")}
+          coverage = json.loads(Path("coverage.json").read_text())["totals"]["percent_covered"]
+          wheel = next(Path("dist").glob("*.whl"))
+          wheel_bytes = wheel.read_bytes()
+          with zipfile.ZipFile(wheel) as archive:
+              wheel_entries = len(archive.namelist())
+
+          excluded = {".git", ".venv", "dist", "build", "__pycache__", ".pytest_cache", ".ruff_cache"}
+          files = []
+          for path in sorted(root.rglob("*")):
+              if not path.is_file() or any(part in excluded for part in path.parts):
+                  continue
+              rel = path.relative_to(root).as_posix()
+              if rel in {"coverage.json", "junit.xml", "SOURCE_MANIFEST.json", "docs/VERIFICATION.json"}:
+                  continue
+              data = path.read_bytes()
+              files.append({"path": rel, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()})
+          manifest = {
+              "schema_version": 1,
+              "product": "CineNode",
+              "version": "1.0.0",
+              "file_count": len(files),
+              "total_bytes": sum(item["bytes"] for item in files),
+              "files": files,
+          }
+          Path("SOURCE_MANIFEST.json").write_text(json.dumps(manifest, indent=2) + "\n")
+          record = {
+              "schema_version": 1,
+              "product": "CineNode",
+              "version": "1.0.0",
+              "quality_gates_passed": True,
+              "generated_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              "tests": tests,
+              "coverage_percent": coverage,
+              "wheel": {
+                  "name": wheel.name,
+                  "entries": wheel_entries,
+                  "bytes": len(wheel_bytes),
+                  "sha256": hashlib.sha256(wheel_bytes).hexdigest(),
+              },
+              "source_manifest": {"file_count": manifest["file_count"], "total_bytes": manifest["total_bytes"]},
+              "verified_contracts": [
+                  "CineNode and PERZON are separate products",
+                  "wheel includes backend and web canvas",
+                  "clean-room wheel install and import",
+                  "real HTTP startup",
+                  "durable jobs with CANCELLED and INTERRUPTED states",
+                  "portable backup with relative asset paths and SHA-256",
+                  "instance-scoped engines and allowlisted plugins",
+                  "no model weights, tokens or user databases in Git",
+              ],
+          }
+          Path("docs/VERIFICATION.json").write_text(json.dumps(record, indent=2) + "\n")
+          Path("docs/VERIFICATION.md").write_text(
+              "# Verification\n\n"
+              "The CineNode main tree passed executable CI gates.\n\n"
+              f"- Tests: **{tests['tests']}**\n"
+              f"- Failures: **{tests['failures']}**\n"
+              f"- Errors: **{tests['errors']}**\n"
+              f"- Skipped: **{tests['skipped']}**\n"
+              f"- Coverage: **{coverage:.2f}%**\n"
+              f"- Wheel entries: **{wheel_entries}**\n"
+              f"- Wheel SHA-256: `{record['wheel']['sha256']}`\n\n"
+              "The workflow also performed lint/format checks, source verification, wheel inspection, a clean-room installation and a real HTTP smoke test. GPU-specific model quality remains dependent on the selected runtime, model and target hardware.\n"
+          )
+          PY
+          rm -f coverage.json junit.xml
+
+      - name: Commit verified tree directly to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "Canonical tree already verified; no commit required."
+          else
+            git commit -m "feat: deliver verified CineNode local-first modular core"
+            git push origin HEAD:main
+          fi
