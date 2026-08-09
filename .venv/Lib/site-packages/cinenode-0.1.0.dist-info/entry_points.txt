@@ -1,0 +1,2 @@
+[console_scripts]
+cinenode = cinenode.cli:main

@@ -1,4 +1,0 @@
-include README.md LICENSE SECURITY.md
-recursive-include src/cinenode/web *
-recursive-include src/cinenode/manifests *
-include src/cinenode/py.typed
