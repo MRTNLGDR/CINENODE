@@ -1,3 +1,6 @@
-"""CineNode — local-first nodal canvas for cinema and media workflows."""
+"""CineNode public package API. Importing it has no filesystem side effects."""
 
-__version__ = "0.1.0"
+from .config import Settings
+
+__all__ = ["Settings", "__version__"]
+__version__ = "1.0.0"

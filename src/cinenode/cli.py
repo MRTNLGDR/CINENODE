@@ -1,66 +1,67 @@
 from __future__ import annotations
 
-import argparse
-import json
-import sys
-import webbrowser
 from pathlib import Path
+import json
+import os
+import secrets
+import webbrowser
 
+import typer
+import uvicorn
 
-from . import __version__
+from .api.app import create_app
 from .config import Settings
-from .db import Database
-from .engines import engine_status
+from .database import Database
+from .doctor import report as doctor_report
+from .engines.registry import builtin_engines
+from .verify import verify_distribution, verify_source
+
+app = typer.Typer(no_args_is_help=True, help="CineNode local-first orchestration CLI")
 
 
-def doctor(settings: Settings) -> int:
-    settings.ensure()
-    db = Database(settings.db_path)
-    db.initialize()
-    report = {
-        "name": "CineNode",
-        "version": __version__,
-        "home": str(settings.home),
-        "database": str(settings.db_path),
-        "database_exists": settings.db_path.is_file(),
-        "engines": engine_status(),
-        "perzon_bundled": False,
-    }
-    print(json.dumps(report, ensure_ascii=False, indent=2))
-    return 0
-
-
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="cinenode")
-    parser.add_argument("command", nargs="?", choices=["run", "init", "doctor", "version"], default="run")
-    parser.add_argument("--host", default=None)
-    parser.add_argument("--port", type=int, default=None)
-    parser.add_argument("--no-browser", action="store_true")
-    args = parser.parse_args(argv)
-    settings = Settings.load()
-    if args.command == "version":
-        print(__version__)
-        return 0
-    if args.command == "init":
-        settings.ensure()
-        Database(settings.db_path).initialize()
-        print(f"CineNode inicializado em {settings.home}")
-        return 0
-    if args.command == "doctor":
-        return doctor(settings)
-    host = args.host or settings.host
-    port = args.port or settings.port
-    if not args.no_browser:
+@app.command()
+def serve(
+    host: str | None = typer.Option(None),
+    port: int | None = typer.Option(None),
+    mode: str | None = typer.Option(None),
+    open_browser: bool = typer.Option(True, "--open/--no-open"),
+    reload: bool = False,
+) -> None:
+    settings = Settings()
+    if host:
+        settings.host = host
+    if port:
+        settings.port = port
+    if mode:
+        settings.mode = mode
+    settings.prepare()
+    if open_browser and settings.host in {"127.0.0.1", "localhost"}:
         import threading
-        import time
-        def open_later():
-            time.sleep(1.2)
-            webbrowser.open(f"http://{host}:{port}")
-        threading.Thread(target=open_later, daemon=True).start()
-    try:
-        import uvicorn
-    except ImportError as exc:
-        print("uvicorn não está instalado. Execute INSTALL_CINENODE.bat ou ./install.sh.", file=sys.stderr)
-        return 2
-    uvicorn.run("cinenode.api:create_app", factory=True, host=host, port=port)
-    return 0
+        threading.Timer(1.0, lambda: webbrowser.open(f"http://{settings.host}:{settings.port}")).start()
+    if reload:
+        os.environ.update({"CINENODE_HOME": str(settings.home), "CINENODE_HOST": settings.host, "CINENODE_PORT": str(settings.port), "CINENODE_MODE": settings.mode})
+        uvicorn.run("cinenode.api.app:create_app", factory=True, host=settings.host, port=settings.port, reload=True)
+    else:
+        uvicorn.run(create_app(settings), host=settings.host, port=settings.port, log_level="info")
+
+
+@app.command()
+def doctor(json_output: bool = typer.Option(False, "--json")) -> None:
+    settings = Settings(); settings.prepare(); db = Database(settings.database_path); db.initialize()
+    result = doctor_report(settings, db, builtin_engines(test_mode=settings.test_mode, allow_private=settings.allow_private_engine_urls))
+    typer.echo(json.dumps(result, indent=2, ensure_ascii=False) if json_output else "\n".join(f"{key}: {value}" for key, value in result.items()))
+    if not result["ok"]:
+        raise typer.Exit(1)
+
+
+@app.command()
+def verify(source: Path | None = typer.Option(None)) -> None:
+    result = verify_source(source.resolve()) if source else verify_distribution()
+    typer.echo(json.dumps(result, indent=2, ensure_ascii=False))
+    if not result["ok"]:
+        raise typer.Exit(1)
+
+
+@app.command("generate-token")
+def generate_token() -> None:
+    typer.echo(secrets.token_urlsafe(48))

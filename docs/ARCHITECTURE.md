@@ -1,44 +1,5 @@
-# Arquitetura CineNode
+# Architecture
 
-```text
-Browser local
-    │ HTTP + polling/SSE
-    ▼
-FastAPI control plane
-    ├── projetos/workflows
-    ├── assets com SHA-256
-    ├── fila de jobs
-    ├── validação e execução DAG
-    └── SQLite WAL
-           │
-           ├── FFmpeg/ffprobe (processo local)
-           ├── Ollama 127.0.0.1:11434
-           └── ComfyUI 127.0.0.1:8188
-```
+CineNode is divided into replaceable modules: configuration, SQLite persistence, store, typed node registry, DAG compiler, durable job service, cache, event bus, engine adapters, plugin SDK, backup/restore, security middleware, FastAPI transport and a dependency-free web canvas. No module imports PERZON. Engine registries are instance-scoped so one application cannot contaminate another.
 
-O plano de controle permanece utilizável sem GPU. Engines são sidecars ou binários substituíveis. Um node sem sua engine retorna erro explícito; não existe fallback que finja gerar mídia.
-
-## Estados de job
-
-```text
-QUEUED → RUNNING → SUCCEEDED
-                 ├→ FAILED
-                 ├→ CANCELLED     (ação do usuário)
-                 └→ INTERRUPTED   (processo encerrado)
-```
-
-`FAILED`, `CANCELLED` e `INTERRUPTED` podem ser retomados. O shutdown não converte uma interrupção operacional em cancelamento do usuário.
-
-## Grafo
-
-Cada workflow possui nós, conexões e metadados. A validação rejeita:
-
-- IDs duplicados;
-- tipos de nós desconhecidos;
-- endpoints inexistentes;
-- portas incompatíveis;
-- mais de uma conexão na mesma entrada;
-- auto-conexões;
-- ciclos.
-
-A execução usa ordenação topológica e persiste eventos por nó.
+The default deployment is a single-user local process bound to loopback. The same API can run in authenticated server mode. Model runtimes stay out-of-process and are reached through adapters, allowing the orchestration core to be reused by desktop, web, game, media and enterprise products.

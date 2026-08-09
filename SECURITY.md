@@ -1,7 +1,5 @@
-# Política de segurança
+# Security
 
-CineNode é local-first e escuta em loopback. Não publique a porta diretamente na internet.
+CineNode binds to loopback by default. LAN/server mode requires an explicit authentication token. Secrets are never returned by public settings endpoints. Engine URLs are restricted to loopback by default; private-network destinations require explicit configuration. Uploads and downloads are streamed with size limits, archives are checked for path traversal, and model downloads may require an expected SHA-256.
 
-Não envie em commits ou issues públicos: chaves, `.env`, bancos locais, documentos, biometria, modelos com licença restritiva ou arquivos privados.
-
-Falhas devem incluir versão, passos mínimos de reprodução e logs sem dados pessoais.
+Report vulnerabilities privately to the repository owner. Do not include tokens, biometric data, model weights or user databases in issues.

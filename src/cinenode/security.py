@@ -1,49 +1,43 @@
 from __future__ import annotations
 
+from fastapi import Request
+from fastapi.responses import JSONResponse
+from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
+from starlette.responses import Response
 import ipaddress
-import socket
-from pathlib import Path
-from urllib.parse import urlparse
+
+from .config import Settings
 
 
-LOOPBACK_HOSTS = {"127.0.0.1", "localhost", "::1", "testserver", "testclient"}
+class SecurityMiddleware(BaseHTTPMiddleware):
+    def __init__(self, app: object, settings: Settings):
+        super().__init__(app)
+        self.settings = settings
 
-
-def is_loopback_host(host: str | None) -> bool:
-    if not host:
-        return False
-    value = host.split(":", 1)[0].strip("[]").lower()
-    if value in LOOPBACK_HOSTS:
-        return True
-    try:
-        return ipaddress.ip_address(value).is_loopback
-    except ValueError:
-        return False
-
-
-def require_local_url(url: str) -> str:
-    parsed = urlparse(url)
-    if parsed.scheme not in {"http", "https"} or not parsed.hostname:
-        raise ValueError("URL HTTP(S) inválida")
-    if parsed.username or parsed.password:
-        raise ValueError("Credenciais embutidas na URL não são permitidas")
-    host = parsed.hostname.lower()
-    if host == "localhost":
-        return url
-    try:
-        infos = socket.getaddrinfo(host, parsed.port or (443 if parsed.scheme == "https" else 80), type=socket.SOCK_STREAM)
-    except socket.gaierror as exc:
-        raise ValueError(f"Host não resolvido: {host}") from exc
-    addresses = {item[4][0] for item in infos}
-    if not addresses or any(not ipaddress.ip_address(address).is_loopback for address in addresses):
-        raise ValueError("CineNode só permite sidecars HTTP no loopback")
-    return url
-
-
-def safe_child(root: Path, candidate: str | Path) -> Path:
-    base = root.resolve()
-    path = Path(candidate)
-    resolved = (base / path).resolve() if not path.is_absolute() else path.resolve()
-    if resolved != base and base not in resolved.parents:
-        raise ValueError("Caminho fora do workspace CineNode")
-    return resolved
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
+        path = request.url.path
+        public = path in {"/", "/health", "/api/health", "/favicon.svg"} or path.startswith("/web/")
+        client = request.client.host if request.client else ""
+        if self.settings.mode == "local":
+            try:
+                local = ipaddress.ip_address(client).is_loopback
+            except ValueError:
+                local = client in {"localhost", "testclient"}
+            if not local and not self.settings.test_mode:
+                return JSONResponse({"detail": "CineNode local mode accepts loopback clients only"}, 403)
+        if not public and self.settings.mode == "server":
+            supplied = request.headers.get("x-cinenode-token")
+            auth = request.headers.get("authorization", "")
+            if auth.lower().startswith("bearer "):
+                supplied = auth[7:]
+            if supplied != self.settings.auth_token:
+                return JSONResponse({"detail": "authentication required"}, 401)
+        response = await call_next(request)
+        response.headers.setdefault("X-Content-Type-Options", "nosniff")
+        response.headers.setdefault("Referrer-Policy", "no-referrer")
+        response.headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+        response.headers.setdefault(
+            "Content-Security-Policy",
+            "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'",
+        )
+        return response
