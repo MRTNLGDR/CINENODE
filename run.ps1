@@ -1,4 +1,4 @@
-param(
+﻿param(
   [switch]$WithEngines,
   [switch]$NoBrowser,
   [int]$Port = 8787
