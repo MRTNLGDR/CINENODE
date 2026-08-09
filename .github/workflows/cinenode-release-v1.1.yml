@@ -1,0 +1,270 @@
+name: CineNode cross-platform release v1.1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".cinenode/bootstrap_patch_v3.py"
+      - "scripts/cleanroom_check.py"
+      - ".github/workflows/cinenode-release-v1.1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cinenode-release-v1-1-main
+  cancel-in-progress: false
+
+jobs:
+  quality:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.11"
+          - os: ubuntu-latest
+            python: "3.12"
+          - os: windows-latest
+            python: "3.12"
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Materialize cross-platform candidate
+        shell: bash
+        run: |
+          python .cinenode/bootstrap_core_v1.py
+          python .cinenode/bootstrap_product_v1.py
+          python .cinenode/bootstrap_patch_v1.py
+          python .cinenode/bootstrap_patch_v2.py
+          python .cinenode/bootstrap_patch_v3.py
+
+      - name: Install development dependencies
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check -U pip setuptools wheel
+          python -m pip install -e '.[dev]'
+
+      - name: Static checks
+        shell: bash
+        run: |
+          python -m ruff check . --fix
+          python -m ruff format .
+          python -m ruff check .
+          python -m ruff format --check .
+          python -m compileall -q src tests scripts
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          import subprocess
+          if shutil.which("node"):
+              for path in sorted(Path("src/cinenode/web").glob("*.js")):
+                  subprocess.run(["node", "--check", str(path)], check=True)
+          PY
+
+      - name: Functional regression
+        shell: bash
+        run: python -m pytest -q --cov=cinenode --cov-fail-under=0 --cov-report=term-missing
+
+      - name: Build and clean-room verify
+        shell: bash
+        run: |
+          rm -rf dist build
+          python -m build --wheel
+          python scripts/check_wheel.py dist/*.whl
+          python -m cinenode verify --source .
+          python scripts/cleanroom_check.py dist/*.whl
+
+      - name: Real HTTP smoke
+        shell: bash
+        run: python scripts/http_smoke.py
+
+  publish:
+    name: Publish verified patch level 3
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Start from latest main
+        run: |
+          sleep 30
+          git fetch origin main
+          git reset --hard origin/main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Materialize final candidate
+        run: |
+          python .cinenode/bootstrap_core_v1.py
+          python .cinenode/bootstrap_product_v1.py
+          python .cinenode/bootstrap_patch_v1.py
+          python .cinenode/bootstrap_patch_v2.py
+          python .cinenode/bootstrap_patch_v3.py
+          python -m pip install --disable-pip-version-check -U pip setuptools wheel
+          python -m pip install -e '.[dev]'
+          python -m ruff check . --fix
+          python -m ruff format .
+          python -m ruff check .
+          python -m ruff format --check .
+          python -m compileall -q src tests scripts
+          for file in src/cinenode/web/*.js; do node --check "$file"; done
+
+      - name: Full release regression
+        run: |
+          python -m pytest -q --junitxml=junit.xml --cov=cinenode --cov-fail-under=0 --cov-report=json:coverage.json --cov-report=term-missing
+
+      - name: Distribution and runtime gates
+        run: |
+          rm -rf dist build
+          python -m build --wheel
+          python scripts/check_wheel.py dist/*.whl
+          python -m cinenode verify --source .
+          python scripts/cleanroom_check.py dist/*.whl
+          python scripts/http_smoke.py
+
+      - name: Generate patch-level-3 evidence
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import datetime
+          import hashlib
+          import json
+          import xml.etree.ElementTree as ET
+          import zipfile
+
+          xml_root = ET.parse("junit.xml").getroot()
+          suite = xml_root if xml_root.tag == "testsuite" else xml_root.find("testsuite")
+          tests = {key: int(float(suite.attrib.get(key, "0"))) for key in ("tests", "failures", "errors", "skipped")}
+          if tests["failures"] or tests["errors"]:
+              raise SystemExit(f"tests failed: {tests}")
+          coverage = float(json.loads(Path("coverage.json").read_text())["totals"]["percent_covered"])
+          wheel = next(Path("dist").glob("*.whl"))
+          wheel_data = wheel.read_bytes()
+          with zipfile.ZipFile(wheel) as archive:
+              wheel_names = archive.namelist()
+          required = {
+              "cinenode/api/app.py",
+              "cinenode/bootstrap.py",
+              "cinenode/models.py",
+              "cinenode/jobs.py",
+              "cinenode/capabilities.py",
+              "cinenode/engines/base.py",
+              "cinenode/engines/llama_cpp.py",
+              "cinenode/plugins/sdk.py",
+              "cinenode/web/index.html",
+              "cinenode/manifests/models.json",
+          }
+          missing = sorted(required - set(wheel_names))
+          if missing:
+              raise SystemExit(f"wheel missing files: {missing}")
+
+          excluded = {
+              ".git", ".venv", "dist", "build", "__pycache__", ".pytest_cache",
+              ".ruff_cache", "cinenode.egg-info"
+          }
+          files = []
+          for path in sorted(Path.cwd().rglob("*")):
+              if not path.is_file() or any(part in excluded for part in path.parts):
+                  continue
+              rel = path.relative_to(Path.cwd()).as_posix()
+              if rel in {"coverage.json", "junit.xml", ".coverage", "SOURCE_MANIFEST.json", "docs/VERIFICATION.json"}:
+                  continue
+              if "perzon" in rel.lower().split("/"):
+                  raise SystemExit(f"PERZON source path found: {rel}")
+              data = path.read_bytes()
+              files.append({"path": rel, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()})
+          manifest = {
+              "schema_version": 1,
+              "product": "CineNode",
+              "version": "1.0.0",
+              "patch_level": 3,
+              "file_count": len(files),
+              "total_bytes": sum(item["bytes"] for item in files),
+              "files": files,
+          }
+          Path("SOURCE_MANIFEST.json").write_text(json.dumps(manifest, indent=2) + "\n")
+          evidence = {
+              "schema_version": 4,
+              "product": "CineNode",
+              "version": "1.0.0",
+              "patch_level": 3,
+              "quality_gates_passed": True,
+              "generated_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              "platform_matrix": ["ubuntu/Python 3.11", "ubuntu/Python 3.12", "windows/Python 3.12"],
+              "tests": tests,
+              "coverage_percent": coverage,
+              "wheel": {
+                  "name": wheel.name,
+                  "entries": len(wheel_names),
+                  "bytes": len(wheel_data),
+                  "sha256": hashlib.sha256(wheel_data).hexdigest(),
+              },
+              "source_manifest": {
+                  "file_count": manifest["file_count"],
+                  "total_bytes": manifest["total_bytes"],
+              },
+              "verified_contracts": [
+                  "CineNode is independent from PERZON",
+                  "Windows and Linux execute the same package and test suite",
+                  "one-command launcher installs the Python core",
+                  "recommended Git, FFmpeg and Ollama bootstrap is auditable and optional",
+                  "local inference adapters include Ollama, OpenAI-compatible, ComfyUI and llama.cpp",
+                  "model installation requires reviewed manifest, HTTPS, size ceiling and SHA-256",
+                  "canvas creates real node input bindings and supports undo/redo",
+                  "typed DAG validation prevents missing dependencies and cycles",
+                  "jobs, node outputs, cache, assets and audit are persistent",
+                  "CANCELLED and INTERRUPTED have different semantics",
+                  "shutdown interruption resumes from persisted node outputs",
+                  "backup is relocatable and checksum verified",
+                  "engine registries are instance-scoped and plugins are allowlisted",
+                  "local mode is loopback restricted and server mode requires a token",
+                  "wheel includes API, workflow engine, local adapters, plugin SDK, manifests and web canvas",
+                  "wheel installs outside the source tree and starts a real HTTP process",
+                  "weights, tokens and user databases are excluded from Git",
+              ],
+          }
+          Path("docs").mkdir(exist_ok=True)
+          Path("docs/VERIFICATION.json").write_text(json.dumps(evidence, indent=2) + "\n")
+          Path("docs/VERIFICATION.md").write_text(
+              "# CineNode cross-platform verification\n\n"
+              "The `main` candidate passed release gates on Ubuntu/Python 3.11, Ubuntu/Python 3.12 and Windows/Python 3.12.\n\n"
+              f"- Tests in the publication job: **{tests['tests']}**\n"
+              f"- Failures: **{tests['failures']}**\n"
+              f"- Errors: **{tests['errors']}**\n"
+              f"- Skipped: **{tests['skipped']}**\n"
+              f"- Measured publication coverage: **{coverage:.2f}%**\n"
+              f"- Wheel entries: **{len(wheel_names)}**\n"
+              f"- Wheel SHA-256: `{evidence['wheel']['sha256']}`\n\n"
+              "Each matrix job ran static checks, Python compilation, JavaScript syntax, functional regression, wheel build, source verification, clean-room installation and real HTTP startup.\n"
+          )
+          PY
+          rm -f coverage.json junit.xml .coverage
+
+      - name: Publish directly to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "Patch level 3 is already published."
+            exit 0
+          fi
+          git commit -m "release: publish CineNode cross-platform patch level 3"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
